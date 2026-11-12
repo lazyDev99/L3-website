@@ -1,6 +1,6 @@
 // ---- Edit these ----
-const SITE={name:'Ed',about:'Write a few lines about yourself here: who you are, what you study, and why this site exists.',
-socials:[['Facebook','facebook.com'],['Instagram','#'],['GitHub','#']]};
+const SITE={name:'M. Djedir',about:'I’m M. Djedir, a third-year student of translation and interpreting with a passion for web and game development. I created The Booth as a practical, welcoming study space where students can learn, revise and prepare for their exams. I hope you enjoy using it as much as I enjoyed building it.',
+socials:[['Facebook','#'],['Instagram','#'],['GitHub','#']]};
 // --------------------
 const ICON={
 Facebook:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/></svg>',
@@ -12,7 +12,7 @@ const LN={ar:'Arabic',fr:'French',en:'English'},VL={ar:'ar-SA',fr:'fr-FR',en:'en
 const CAT={translation:{n:'Translation',d:'Source texts, your own versions, and notes on every choice.'},interpretation:{n:'Interpretation',d:'Listen, shadow, and build your memory span.'},writing:{n:'Writing',d:'Techniques, models, and exercises for writing well.'}};
 const GL={translation:'A⇄ع',writing:'Aa¶',interpretation:'<svg viewBox="0 0 80 40"><g fill="currentColor"><rect x="2" y="14" width="6" height="12" rx="3"/><rect x="14" y="8" width="6" height="24" rx="3"/><rect x="26" y="2" width="6" height="36" rx="3"/><rect x="38" y="6" width="6" height="28" rx="3"/><rect x="50" y="12" width="6" height="16" rx="3"/><rect x="62" y="4" width="6" height="32" rx="3"/><rect x="74" y="15" width="6" height="10" rx="3"/></g></svg>'};
 const store={get(){try{return JSON.parse(localStorage.getItem('done')||'[]')}catch(e){return[]}},set(v){try{localStorage.setItem('done',JSON.stringify(v))}catch(e){}}};
-const j=u=>fetch(u).then(r=>{if(!r.ok)throw 0;return r.json()});
+const j=u=>location.protocol==='file:'&&window.BOOTH_DATA&&BOOTH_DATA[u]?Promise.resolve(BOOTH_DATA[u]):fetch(u).then(r=>{if(!r.ok)throw 0;return r.json()});
 const L=p=>`href="#/${p}"`;
 const rtl=l=>l==='ar'?' dir="rtl" lang="ar"':` lang="${l}"`;
 const pl=(n,w)=>`${n} ${w}${n===1?'':'s'}`;
@@ -26,6 +26,8 @@ async function route(){
   try{
     if(!mods.length){const ix=await j('content/modules.json');mods=await Promise.all(ix.map(i=>j(`content/${i}.json`)))}
     const key=h[0]==='about'||h[0]==='play'?h[0]:h[0]==='c'?'c/'+h[1]:(h[0]==='m'||h[0]==='l')?'c/'+(find(h[1])||{}).cat:'';
+    const back={c:'#/',m:'#/c/'+(find(h[1])||{}).cat,l:'#/m/'+h[1],about:'#/',play:'#/'}[h[0]];
+    const backLink=$('#backlink');backLink.hidden=!back;backLink.href=back||'#/';
     document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',(a.dataset.go??a.getAttribute('href').slice(2))===key));
     ({c:()=>cat(h[1]),m:()=>mpage(h[1]),l:()=>lesson(h[1],h[2]),about,play}[h[0]]||home)();
     const dp={c:1,about:1,play:1,m:2,l:3}[h[0]]||0;app.className='';void app.offsetWidth;app.className=dp>=pd?'gf':'gb';pd=dp;const h1=$('#app h1');document.title=(h1?h1.textContent+' | ':'')+'The Booth';
@@ -71,24 +73,29 @@ function lesson(mid,lid){
     `<h2 id="s-r">Translation</h2><textarea id="att" class="att" rows="6" placeholder="Try your own version here first. It is saved on this device."></textarea>`+
     (l.draft?`<p><span class="pill">Draft, to be checked against the class version</span></p>`:'')+
     `<button class="btn pri" id="ra">Reveal all</button><article id="tr" class="art cvr">${tr}</article><h2 id="s-n">Notes</h2>${nt||'<p class="lede">No notes yet.</p>'}`;
-  }else if(m.cat==='writing'){
+  }else if(m.cat==='writing'||l.sections){
     const md=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>');
-    const wb=b=>b.k==='sum'?`<div class="sumbox"><b class="bl">En trois points</b><ul>${b.items.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>`:
+    const wb=(b,arabic)=>b.k==='sum'?`<div class="sumbox"><b class="bl">${arabic?'النقاط الأساسية':'Key points'}</b><ul>${b.items.map(x=>`<li>${md(x)}</li>`).join('')}</ul></div>`:
       b.k==='def'?`<dl class="def"><dt>${esc(b.term)}</dt><dd>${md(b.text)}${b.note?`<span class="dn">${md(b.note)}</span>`:''}</dd></dl>`:
       b.k==='ul'||b.k==='ol'?`<${b.k} class="wl">${b.items.map(x=>`<li>${md(x)}</li>`).join('')}</${b.k}>`:
       b.k==='tbl'?`<div class="tw"><table><thead><tr>${b.head.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i?`<td>${md(c)}</td>`:`<th scope="row">${md(c)}</th>`).join('')}</tr>`).join('')}</tbody></table></div>`:
       b.k==='tip'?`<p class="tip"><b>${esc(b.label)}</b> ${md(b.text)}</p>`:`<p class="wp">${md(b.text)}</p>`;
-    h+=`<p><span class="pill">${LN[m.lang]}</span> ${(l.info||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join(' ')}</p>`+(l.note?`<p><span class="pill">${esc(l.note)}</span></p>`:'')+
-      `<div class="jump">${l.sections.map((x,i)=>`<button class="btn" data-j="w${i}">${esc(x.j||x.h)}</button>`).join('')}${l.qa?'<button class="btn" data-j="wq">Test yourself</button>':''}</div>`+
-      l.sections.map((x,i)=>`<h2 id="w${i}">${esc(x.h)}</h2>`+x.blocks.map(wb).join('')).join('')+
-      (l.qa?`<h2 id="wq">Test yourself</h2><p class="lede">Answer out loud first, then tap a question to check.</p>`+l.qa.map(([q,a])=>`<details class="qa"><summary>${md(q)}</summary><p>${md(a)}</p></details>`).join(''):'');
+    const renderSections=(sections,prefix,arabic)=>sections.map((x,i)=>`<h2 id="${prefix}${i}">${esc(x.h)}</h2>`+x.blocks.map(b=>wb(b,arabic)).join('')).join('');
+    const renderQa=(qa,prefix)=>qa?`<h2 id="${prefix}q">Test yourself</h2><p class="lede">Answer out loud first, then open a question to check.</p>`+qa.map(([q,a])=>`<details class="qa"><summary>${md(q)}</summary><p>${md(a)}</p></details>`).join(''):'';
+    const arabic=l.sectionsAr&&l.qaAr;
+    h+=`<p><span class="pill">${m.from?LN[m.from]+' into '+LN[m.to]:LN[m.lang]}</span> ${(l.info||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join(' ')}</p>`+(l.note?`<p><span class="pill">${esc(l.note)}</span></p>`:'')+
+      `${arabic?'<div class="lang-switch" role="group" aria-label="Study language"><span>Study language:</span><button class="btn pri" data-lang="en">English</button><button class="btn" data-lang="ar">العربية <span class="lang-name">Arabic</span></button></div>':''}<div class="jump">${l.sections.map((x,i)=>`<button class="btn" data-j="w${i}">${esc(x.j||x.h)}</button>`).join('')}${l.qa?'<button class="btn" data-j="wq">Test yourself</button>':''}</div>`+
+      `<div class="lang-content" data-content="en">${renderSections(l.sections,'w',false)}${renderQa(l.qa,'w')}</div>`+
+      (arabic?`<div class="lang-content lang-alt" data-content="ar" dir="rtl">${renderSections(l.sectionsAr,'a',true)}${renderQa(l.qaAr,'a')}</div>`:'');
   }else{
     P={m:{chunks:l.chunks,lang:m.lang},key,k:1,i:-1,rate:1,loop:false,play:false,t:0,tm:l.times,au:l.audio?Object.assign(new Audio(l.audio),{preload:'auto',preservesPitch:true}):null};
-    h+=`<p class="pill">${m.from?LN[m.from]+' into '+LN[m.to]:LN[m.lang]}</p>${l.audio?'<span class="pill">Original recording</span>':''}<p class="lede">Tap any line to start from there.</p><div class="layout"><div id="txt"${rtl(m.lang)}></div><aside class="side">
+    const study=l.study?`<section class="study-guide"><div class="study-head"><span class="pill">Study guide</span><p class="lede">Learn the idea first, then practise recalling it from the symbols.</p></div>${l.study.map(s=>`<div class="study-section"><h2>${esc(s.title)}</h2><div class="study-cards">${s.cards.map(c=>`<article class="study-card"><span class="study-symbol">${esc(c.symbol)}</span><div><h3${rtl(m.lang)}>${esc(c.term)}</h3><p${rtl(m.lang)}><b>Definition:</b> ${esc(c.definition)}</p><p${rtl(m.lang)}><b>Why useful:</b> ${esc(c.use)}</p></div></article>`).join('')}</div></div>`).join('')}</section>`:'';
+    h+=study+`<p class="pill">${m.from?LN[m.from]+' into '+LN[m.to]:LN[m.lang]}</p>${l.audio?'<span class="pill">Original recording</span>':''}<p class="lede">Tap any line to start from there.</p><div class="layout"><div id="txt"${rtl(m.lang)}></div><aside class="side">
     <button class="btn" id="pv" aria-label="Previous chunk">Prev</button><button class="btn pri" id="pp">Play</button><button class="btn" id="nx" aria-label="Next chunk">Next</button>
     <button class="btn" id="lp">Repeat chunk: off</button>
     <label>Speed <select id="sp"><option>0.7</option><option>0.85</option><option selected>1</option><option>1.2</option></select></label>
-    <label>Chunk size <select id="lv"><option value="1">Short</option><option value="2">Medium</option><option value="3">Long</option></select></label>${l.audio?'<button class="btn" id="sy">Fix timing</button>':''}</aside></div>`;
+    <label>Voice <select id="voice"><option>Loading voices…</option></select></label>
+    <label>Chunk size <select id="lv"><option value="1">Short</option><option value="2">Medium</option><option value="3">Long</option></select></label>${l.audio?'<button class="btn" id="sy">Fix timing</button>':''}</aside></div>`+(l.extra&&l.extra.length?`<h2>Text without audio</h2><p class="sub">The recording ends before these lines.</p>`+l.extra.map(c=>`<p class="wp">${esc(c)}</p>`).join(''):'');
   }
   const nx=m.lessons[m.lessons.indexOf(l)+1];
   h+=`<p><button class="btn" id="dn"></button> <span class="sub" id="dm" aria-live="polite"></span></p>`+(nx?`<a class="row" ${L(`l/${mid}/${nx.id}`)}>${dt(nx.date)}<span class="rt"><span class="sub">Next lesson</span><span class="rtitle">${esc(nx.title)}</span></span>${go}</a>`:'')+`</div>`;app.innerHTML=h;
@@ -96,10 +103,10 @@ function lesson(mid,lid){
   const dn=$('#dn'),paint=()=>dn.textContent=store.get().includes(key)?'Done ✓':'Mark as done';paint();
   dn.onclick=()=>{let d=store.get();const on=!d.includes(key);store.set(on?[...d,key]:d.filter(x=>x!==key));paint();$('#dm').textContent=on?rnd(DL):''};
   if(m.cat==='translation')tw(key);
-  else if(m.cat==='writing')ww();
+  else if(m.cat==='writing'||l.sections)ww();
   else wire();
 }
-function ww(){app.onclick=e=>{const g=e.target.closest('[data-j]');if(g)document.getElementById(g.dataset.j).scrollIntoView({behavior:'smooth'})}}
+function ww(){app.onclick=e=>{const lang=e.target.closest('[data-lang]');if(lang){app.querySelectorAll('[data-content]').forEach(x=>x.classList.toggle('lang-alt',x.dataset.content!==lang.dataset.lang));app.querySelectorAll('[data-lang]').forEach(x=>x.classList.toggle('pri',x===lang));return}const g=e.target.closest('[data-j]');if(g){const active=app.querySelector('.lang-content:not(.lang-alt)');const id=(active&&active.dataset.content==='ar'?'a':'w')+g.dataset.j.slice(1);active.querySelector('#'+id).scrollIntoView({behavior:'smooth'})}}}
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const sd2=l=>l==='ar'?'ka':'kf',at2=l=>l==='ar'?' dir="rtl" lang="ar"':` lang="${l}"`;
@@ -173,7 +180,7 @@ function say(i){
     au.readyState<1?au.addEventListener('loadedmetadata',run,{once:true}):run();return;
   }
   const txt=P.c[i],u=new SpeechSynthesisUtterance(txt),l=P.m.lang;
-  const v=speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith(l));
+  const v=P.voice||speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith(l));
   u.lang=VL[l];if(v)u.voice=v;u.rate=P.rate;
   const st=[];txt.replace(/\S+/g,(w,o)=>st.push(o));
   u.onboundary=e=>{const n=st.findIndex((s,x)=>s<=e.charIndex&&(st[x+1]===undefined||st[x+1]>e.charIndex));
@@ -183,6 +190,18 @@ function say(i){
 }
 function wire(){
   if(!window.speechSynthesis){$('#txt').insertAdjacentHTML('beforebegin','<p class="note">This browser has no speech voice. Try Chrome or Safari.</p>')}
+  const vs=$('#voice'),voiceKey='voice:'+P.m.lang;
+  const score=v=>{const n=v.name.toLowerCase();return (n.includes('natural')?30:0)+(n.includes('neural')?25:0)+(n.includes('premium')?20:0)+(n.includes('enhanced')?15:0)+(v.default?5:0)};
+  const loadVoices=()=>{
+    if(!vs||!window.speechSynthesis)return;
+    const voices=speechSynthesis.getVoices().filter(v=>v.lang.toLowerCase().startsWith(P.m.lang)).sort((a,b)=>score(b)-score(a)||a.name.localeCompare(b.name));
+    vs.innerHTML='';
+    voices.forEach(v=>{const o=document.createElement('option');o.value=v.name+'|'+v.lang;o.textContent=v.name+' ('+v.lang+')';vs.appendChild(o)});
+    if(!voices.length){const o=document.createElement('option');o.textContent='No '+LN[P.m.lang]+' voice found';vs.appendChild(o);return}
+    let saved='';try{saved=localStorage.getItem(voiceKey)||''}catch(e){}
+    const chosen=voices.find(v=>v.name+'|'+v.lang===saved)||voices[0];
+    P.voice=chosen;vs.value=chosen.name+'|'+chosen.lang;
+  };
   draw();
   const tog=()=>P.play?stop():say(Math.max(P.i,0));
   $('#pp').onclick=tog;
@@ -190,26 +209,32 @@ function wire(){
   $('#pv').onclick=()=>say(Math.max(P.i-1,0));
   $('#lp').onclick=e=>{P.loop=!P.loop;e.target.textContent='Repeat chunk: '+(P.loop?'on':'off')};
   $('#sp').onchange=e=>{P.rate=+e.target.value;if(P.au)P.au.playbackRate=P.rate};
+  vs.onchange=e=>{P.voice=speechSynthesis.getVoices().find(v=>v.name+'|'+v.lang===e.target.value)||null;try{localStorage.setItem(voiceKey,e.target.value)}catch(err){}};
   $('#lv').onchange=e=>{stop();P.k=+e.target.value;P.i=-1;draw()};
   $('#txt').onclick=e=>{const c=e.target.closest('.chunk');if(c)say(+c.dataset.i)};
   if($('#sy'))$('#sy').onclick=syncMode;
   $('#txt').onkeydown=e=>{if(e.key==='Enter'){const c=e.target.closest('.chunk');if(c)say(+c.dataset.i)}};
+  if(window.speechSynthesis){speechSynthesis.onvoiceschanged=loadVoices;loadVoices()}
 }
 function syncMode(){
-  stop();const au=P.au,n=P.m.chunks.length,side=$('.side'),key=P.key;let t=[];P.k=1;P.sy=1;draw();$('#txt').onclick=null;
-  const ls=()=>document.querySelectorAll('.chunk'),show=()=>{ls().forEach((e,x)=>e.classList.toggle('on',x===t.length));const e=ls()[t.length];e&&e.scrollIntoView({block:'center',behavior:'smooth'});$('#mk').textContent=t.length<n?`Mark line ${t.length+1} of ${n}`:'Finish'};
-  side.innerHTML='<p class="sub">Press Play. Tap Mark the moment the highlighted line starts in the audio.</p><button class="btn" id="s2">Play</button><button class="btn pri" id="mk"></button><button class="btn" id="ud">Undo</button><button class="btn" id="cx">Cancel</button>';
+  stop();const au=P.au,n=P.m.chunks.length,side=$('.side'),key=P.key,base=P.tm.map(x=>x.slice());let t=[],o=0;P.k=1;P.sy=1;draw();$('#txt').onclick=null;
+  const ls=()=>document.querySelectorAll('.chunk'),cur=()=>o+t.length,show=()=>{ls().forEach((e,x)=>e.classList.toggle('on',x===cur()));const e=ls()[cur()];e&&e.scrollIntoView({block:'center',behavior:'smooth'});$('#mk').textContent=cur()<n?`Mark line ${cur()+1} of ${n}`:'Finish and save';$('#sv').disabled=!t.length};
+  side.innerHTML='<p class="sub">Press Play. Tap Mark the moment the highlighted line starts. You can save at any point: lines you did not mark keep their old timing.</p><label>Start at line <input id="st" type="number" min="1" max="'+n+'" value="1" style="width:4.5em"></label><button class="btn" id="s2">Play</button><button class="btn pri" id="mk"></button><button class="btn" id="ud">Undo</button><button class="btn" id="sv">Save changes</button><button class="btn" id="cx">Cancel</button>';
   au.pause();au.currentTime=0;show();
   $('#s2').onclick=e=>{if(au.paused){au.play();e.target.textContent='Pause'}else{au.pause();e.target.textContent='Play'}};
   $('#ud').onclick=()=>{t.pop();show()};
   $('#cx').onclick=()=>{au.pause();route()};
-  $('#mk').onclick=()=>{
-    if(t.length<n){t.push(Math.max(0,au.currentTime-.25));show();return}
-    au.pause();const tm=t.map((s,i)=>[+s.toFixed(2),+(i<n-1?t[i+1]-.05:(au.duration||s+8)).toFixed(2)]);
+  $('#st').onchange=e=>{o=Math.min(n-1,Math.max(0,(+e.target.value||1)-1));t=[];au.currentTime=Math.max(0,base[o][0]-2);show()};
+  const save=()=>{
+    au.pause();const tm=base.map(x=>x.slice());
+    t.forEach((s,k)=>{const i=o+k;tm[i][0]=+s.toFixed(2);const nx=k<t.length-1?t[k+1]-.05:(i<n-1?(base[i][1]>s+.3?base[i][1]:s+3):(au.duration||s+8));tm[i][1]=+nx.toFixed(2)});
+    if(o>0&&t.length)tm[o-1][1]=+Math.min(tm[o-1][1],t[0]-.05).toFixed(2);
     try{localStorage.setItem('tm:'+key,JSON.stringify(tm))}catch(e){}
-    try{navigator.clipboard.writeText(JSON.stringify({lesson:key,times:tm}))}catch(e){}
+    try{navigator.clipboard.writeText(JSON.stringify({lesson:key,times:tm})).catch(()=>{})}catch(e){}
     route();setTimeout(()=>$('#txt')&&$('#txt').insertAdjacentHTML('beforebegin','<p class="note">New timing saved on this device and copied to the clipboard.</p>'),50);
   };
+  $('#sv').onclick=save;
+  $('#mk').onclick=()=>{if(cur()<n){t.push(Math.max(0,au.currentTime-.25));show()}else save()};
 }
 onkeydown=e=>{
   if(KB&&/^[1-4]$/.test(e.key)){KB(e);return}
@@ -219,6 +244,5 @@ onkeydown=e=>{
   else if(e.key==='ArrowLeft')$('#pv').click();
   else if(e.key==='r')$('#lp').click();
 };
-$('#who').textContent=SITE.name;
 $('#soc').innerHTML=SITE.socials.map(([n,u])=>`<a class="soc" href="${esc(u)}" target="_blank" rel="noopener" aria-label="${esc(n)}" title="${esc(n)}">${ICON[n]||esc(n)}</a>`).join('');
 addEventListener('hashchange',route);route();

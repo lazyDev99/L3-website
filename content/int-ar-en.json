@@ -1,0 +1,335 @@
+{
+  "id": "int-ar-en",
+  "cat": "interpretation",
+  "title": "Arabic to English",
+  "lang": "ar",
+  "from": "ar",
+  "to": "en",
+  "prof": "Pr Seddiki",
+  "lessons": [
+    {
+      "id": "l1",
+      "date": "Tue 10 Nov 2026",
+      "title": "Interpreting notes: universal signs and symbols",
+      "info": [
+        "Class lesson of 10 Nov 2026",
+        "Note-taking foundations"
+      ],
+      "note": "Study summary organised for quick review; compare wording with the class handout.",
+      "sections": [
+        {
+          "h": "The essentials",
+          "j": "Essentials",
+          "blocks": [
+            {
+              "k": "sum",
+              "items": [
+                "Consecutive interpreting: the interpreter listens to a segment, then delivers its meaning after the speaker pauses.",
+                "Simultaneous interpreting: the interpreter delivers the message at almost the same time as the speaker.",
+                "Professional notes are not a transcript; they are a compact map of meaning, relationships and figures."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "Definitions",
+          "j": "Definitions",
+          "blocks": [
+            {
+              "k": "def",
+              "term": "Consecutive interpreting",
+              "text": "Transferring the message after each segment of the speaker's delivery. This allows the interpreter to listen, understand and rebuild the message accurately.",
+              "note": "Organised notes are especially useful when segments are long or contain many figures and names."
+            },
+            {
+              "k": "def",
+              "term": "Simultaneous interpreting",
+              "text": "Transferring the message almost at the same time as the speaker. This keeps a conference flowing but requires focus, speed and immediate processing."
+            },
+            {
+              "k": "def",
+              "term": "Interpreter's notes",
+              "text": "Symbols, keywords and visual relationships that help the interpreter remember the structure of a message, not every word.",
+              "note": "The purpose is to support listening and memory, not replace understanding."
+            }
+          ]
+        },
+        {
+          "h": "Universal signs and their uses",
+          "j": "Symbols",
+          "blocks": [
+            {
+              "k": "tbl",
+              "head": [
+                "Symbol",
+                "Meaning",
+                "Why it is useful"
+              ],
+              "rows": [
+                [
+                  "+",
+                  "Addition / and",
+                  "Records a link between ideas quickly and preserves the message structure."
+                ],
+                [
+                  "↑ / ↓",
+                  "Increase / decrease",
+                  "Captures direction in prices, production and percentages without a long sentence."
+                ],
+                [
+                  "→",
+                  "Result / direction / transition",
+                  "Shows that one idea leads to another or that something moves towards a goal."
+                ],
+                [
+                  "∵ / ∴",
+                  "Cause / result",
+                  "Separates the logical relationship and prevents the main argument from being lost."
+                ],
+                [
+                  "≠ / ×",
+                  "Negation / refusal / prohibition",
+                  "Prevents the meaning from being reversed; missing a negative is a serious interpreting error."
+                ],
+                [
+                  "!",
+                  "Importance / emphasis",
+                  "Reminds you to highlight a central idea or emphatic tone."
+                ],
+                [
+                  "?",
+                  "Question / point to verify",
+                  "Prevents guessing and reminds you to return to the point."
+                ],
+                [
+                  "△",
+                  "Change / transition",
+                  "Captures a change in policy, position or state in one sign."
+                ],
+                [
+                  "≈",
+                  "Approximately / estimate",
+                  "Preserves the degree of precision intended by the speaker."
+                ],
+                [
+                  "t / $ / %",
+                  "Time / money / percentage",
+                  "Visual shorthand for recurring concepts, leaving room for keywords."
+                ]
+              ]
+            },
+            {
+              "k": "tip",
+              "label": "Important.",
+              "text": "There is no closed list to memorise word for word. Adapt a sign if needed, but keep its meaning stable and clear to you."
+            }
+          ]
+        },
+        {
+          "h": "Practical note-taking rules",
+          "j": "Rules",
+          "blocks": [
+            {
+              "k": "ul",
+              "items": [
+                "Write the meaning, not the words: record the idea and relationship, then reformulate it in the target language.",
+                "Use keywords: names, figures, terms and logical links.",
+                "Arrange notes vertically and briefly so you can read them quickly after the segment ends.",
+                "Make symbols personal, but do not change their meaning during the speech.",
+                "Protect negatives, figures and logical links; small elements can have a major effect on meaning."
+              ]
+            },
+            {
+              "k": "tip",
+              "label": "Rule of thumb.",
+              "text": "Speed matters, but clarity a few minutes later matters more than the shape or decoration of a sign."
+            }
+          ]
+        }
+      ],
+      "qa": [
+        [
+          "What is the difference between consecutive and simultaneous interpreting?",
+          "In consecutive interpreting, the interpreter delivers the message after the speaker pauses; in simultaneous interpreting, the interpreter delivers it almost at the same time."
+        ],
+        [
+          "Why does an interpreter not write every word?",
+          "Notes are a map of meaning, relationships and figures. Writing every word would obstruct listening and understanding."
+        ],
+        [
+          "What do ? and ? mean?",
+          "They mean increase and decrease, and help record direction quickly."
+        ],
+        [
+          "Why are negation signs important?",
+          "Because omitting a negative or refusal can completely reverse the meaning."
+        ],
+        [
+          "What are ? and ? used for?",
+          "The first shows a cause and the second shows a result, preserving the logic of an argument."
+        ],
+        [
+          "How should you choose your symbols?",
+          "Adapt them to suit you, but keep their meaning stable, clear and quick to read."
+        ]
+      ],
+      "sectionsAr": [
+        {
+          "h": "The essentials",
+          "j": "Essentials",
+          "blocks": [
+            {
+              "k": "sum",
+              "items": [
+                "التفسير التتابعي: يستمع المترجم إلى مقطع من الخطاب ثم ينقل معناه بعد توقف المتكلم.",
+                "التفسير الفوري: ينقل المترجم الرسالة في الوقت نفسه تقريبا الذي يتحدث فيه المتكلم.",
+                "الملاحظات المهنية ليست تفريغا حرفيا؛ إنها خريطة مختصرة للمعنى والعلاقات والأرقام."
+              ]
+            }
+          ]
+        },
+        {
+          "h": "Definitions",
+          "j": "Definitions",
+          "blocks": [
+            {
+              "k": "def",
+              "term": "Consecutive interpreting — التفسير التتابعي",
+              "text": "نقل الرسالة بعد كل مقطع من كلام المتحدث. يتيح هذا النمط للمترجم الاستماع والفهم ثم إعادة بناء الرسالة بدقة.",
+              "note": "تكون الملاحظات المنظمة مفيدة خصوصا عندما تكون المقاطع طويلة أو مليئة بالأرقام والأسماء."
+            },
+            {
+              "k": "def",
+              "term": "Simultaneous interpreting — التفسير الفوري",
+              "text": "نقل الرسالة بالتزامن تقريبا مع كلام المتحدث. يحافظ هذا النمط على انسياب المؤتمر، لكنه يتطلب تركيزا وسرعة ومعالجة فورية."
+            },
+            {
+              "k": "def",
+              "term": "Interpreter’s notes — ملاحظات المترجم",
+              "text": "رموز وكلمات مفتاحية وعلاقات بصرية تساعد المترجم على تذكر بنية الرسالة، لا على تذكر كل كلمة.",
+              "note": "الغرض هو دعم الذاكرة والاستماع، وليس استبدال الفهم."
+            }
+          ]
+        },
+        {
+          "h": "Universal signs and their uses",
+          "j": "Symbols",
+          "blocks": [
+            {
+              "k": "tbl",
+              "head": [
+                "Symbol",
+                "Meaning",
+                "Why it is useful"
+              ],
+              "rows": [
+                [
+                  "+",
+                  "إضافة / و",
+                  "يسجل الجمع بين فكرتين بسرعة ويحافظ على بنية الرسالة."
+                ],
+                [
+                  "↑ / ↓",
+                  "ارتفاع / انخفاض",
+                  "يلتقط الاتجاه في الأسعار والإنتاج والنسب دون كتابة جملة طويلة."
+                ],
+                [
+                  "→",
+                  "نتيجة / اتجاه / انتقال",
+                  "يوضح أن فكرة تقود إلى أخرى أو أن شيئا ينتقل نحو هدف."
+                ],
+                [
+                  "∵ / ∴",
+                  "سبب / نتيجة",
+                  "يفصل العلاقة المنطقية ويمنع فقدان الحجة الأساسية."
+                ],
+                [
+                  "≠ / ×",
+                  "نفي / رفض / منع",
+                  "يمنع قلب المعنى؛ إغفال النفي من أخطر أخطاء التفسير."
+                ],
+                [
+                  "!",
+                  "أهمية / تأكيد",
+                  "يذكّر بإبراز الفكرة المحورية أو النبرة المؤكدة."
+                ],
+                [
+                  "?",
+                  "سؤال / نقطة تحتاج تحققا",
+                  "يمنع التخمين ويذكّر المترجم بالعودة إلى النقطة المناسبة."
+                ],
+                [
+                  "△",
+                  "تغيير / تحول",
+                  "يلتقط تغير السياسة أو الموقف أو الحالة بكلمة واحدة."
+                ],
+                [
+                  "≈",
+                  "تقريبا / تقدير",
+                  "يحافظ على درجة الدقة التي قصدها المتحدث."
+                ],
+                [
+                  "t / $ / %",
+                  "زمن / مال / نسبة",
+                  "اختصارات بصرية للمفاهيم المتكررة، فتترك مساحة للكلمات المفتاحية."
+                ]
+              ]
+            },
+            {
+              "k": "tip",
+              "label": "Important.",
+              "text": "لا توجد قائمة مغلقة يجب حفظها حرفيا: يمكن تكييف الرمز، لكن يجب أن يكون معناه ثابتا وواضحا للمترجم."
+            }
+          ]
+        },
+        {
+          "h": "Practical note-taking rules",
+          "j": "Rules",
+          "blocks": [
+            {
+              "k": "ul",
+              "items": [
+                "اكتب المعنى لا الكلمات: سجل الفكرة والعلاقة، ثم أعد صياغتها باللغة الهدف.",
+                "استعمل الكلمات المفتاحية: الأسماء والأرقام والمصطلحات والعلاقات المنطقية.",
+                "نظم الملاحظات عموديا وباختصار حتى تستطيع قراءتها بسرعة بعد انتهاء المقطع.",
+                "اجعل الرموز شخصية، لكن لا تغيّر معناها أثناء الخطاب.",
+                "احمِ النفي والأرقام والروابط المنطقية؛ فهي عناصر صغيرة ذات أثر كبير في المعنى."
+              ]
+            },
+            {
+              "k": "tip",
+              "label": "Rule of thumb.",
+              "text": "السرعة مهمة، لكن الوضوح بعد دقائق أهم من شكل الرمز أو زخرفته."
+            }
+          ]
+        }
+      ],
+      "qaAr": [
+        [
+          "ما الفرق بين التفسير التتابعي والتفسير الفوري؟",
+          "في التتابعي ينقل المترجم الرسالة بعد توقف المتحدث، أما في الفوري فينقلها بالتزامن تقريبا مع كلامه."
+        ],
+        [
+          "لماذا لا يكتب المترجم كل كلمة؟",
+          "لأن الملاحظات خريطة للمعنى والعلاقات والأرقام، وكتابتها حرفيا يعيق الاستماع والفهم."
+        ],
+        [
+          "ماذا تعني ↑ و ↓؟",
+          "تعنيان الارتفاع والانخفاض، وتساعدان على تسجيل الاتجاه بسرعة."
+        ],
+        [
+          "لماذا تعد علامات النفي مهمة؟",
+          "لأن حذف النفي أو الرفض قد يقلب معنى الرسالة تماما."
+        ],
+        [
+          "ما فائدة ∵ و ∴؟",
+          "توضح الأولى السبب، وتوضح الثانية النتيجة؛ وبذلك تحافظان على منطق الحجة."
+        ],
+        [
+          "كيف تختار رموزك؟",
+          "يمكن تكييفها لتناسبك، لكن يجب أن يكون معناها ثابتا وواضحا وسهل القراءة بسرعة."
+        ]
+      ]
+    }
+  ]
+}
