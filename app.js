@@ -9,6 +9,7 @@ GitHub:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="cu
 const $=s=>document.querySelector(s),app=$('#app');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const LN={ar:'Arabic',fr:'French',en:'English'},VL={ar:'ar-SA',fr:'fr-FR',en:'en-US'};
+const voiceLocale=l=>P&&P.key.startsWith('int-en-ar/')?'en-GB':VL[l];
 const CAT={translation:{n:'Translation',d:'Source texts, your own versions, and notes on every choice.'},interpretation:{n:'Interpretation',d:'Listen, shadow, and build your memory span.'},writing:{n:'Writing',d:'Techniques, models, and exercises for writing well.'}};
 const GL={translation:'A⇄ع',writing:'Aa¶',interpretation:'<svg viewBox="0 0 80 40"><g fill="currentColor"><rect x="2" y="14" width="6" height="12" rx="3"/><rect x="14" y="8" width="6" height="24" rx="3"/><rect x="26" y="2" width="6" height="36" rx="3"/><rect x="38" y="6" width="6" height="28" rx="3"/><rect x="50" y="12" width="6" height="16" rx="3"/><rect x="62" y="4" width="6" height="32" rx="3"/><rect x="74" y="15" width="6" height="10" rx="3"/></g></svg>'};
 const store={get(){try{return JSON.parse(localStorage.getItem('done')||'[]')}catch(e){return[]}},set(v){try{localStorage.setItem('done',JSON.stringify(v))}catch(e){}}};
@@ -167,6 +168,17 @@ function mark(){
 }
 function btn(){const b=$('#pp');if(b&&P)b.textContent=P.play?'Pause':'Play'}
 function stop(){if(window.speechSynthesis)speechSynthesis.cancel();if(P){P.play=false;P.t++;clearInterval(P.iv);if(P.au)P.au.pause()}btn()}
+const isEnglishLesson=()=>P&&P.key.startsWith('int-en-ar/');
+const voiceScore=v=>{
+  const n=v.name.toLowerCase(),l=v.lang.toLowerCase();
+  return (isEnglishLesson()&&l==='en-gb'?100:0)+(n.includes('female')?40:0)+(n.includes('sonia')?35:0)+(n.includes('hazel')?35:0)+(n.includes('natural')?30:0)+(n.includes('neural')?25:0)+(n.includes('premium')?20:0)+(n.includes('enhanced')?15:0)-(n.includes('male')?80:0)-(n.includes('david')?50:0)+(v.default?5:0);
+};
+const availableVoices=()=>speechSynthesis.getVoices().filter(v=>{
+  const n=v.name.toLowerCase(),l=v.lang.toLowerCase();
+  if(isEnglishLesson())return l==='en-gb'||(l.startsWith('en-')&&!n.includes('male')&&!n.includes('david'));
+  return l.startsWith(P.m.lang);
+}).sort((a,b)=>voiceScore(b)-voiceScore(a)||a.name.localeCompare(b.name));
+const preferredVoice=l=>availableVoices().find(v=>v.lang.toLowerCase()===(isEnglishLesson()?'en-gb':VL[l].toLowerCase()))||availableVoices()[0];
 function say(i){
   if(window.speechSynthesis)speechSynthesis.cancel();clearInterval(P.iv);P.t++;const t=P.t;
   if(i<0||i>=P.c.length){P.play=false;if(P.au)P.au.pause();return btn()}
@@ -178,8 +190,8 @@ function say(i){
     au.readyState<1?au.addEventListener('loadedmetadata',run,{once:true}):run();return;
   }
   const txt=P.c[i],u=new SpeechSynthesisUtterance(txt),l=P.m.lang;
-  const v=P.voice||speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith(l));
-  u.lang=VL[l];if(v)u.voice=v;u.rate=P.rate;
+  const v=P.voice||preferredVoice(l);
+  u.lang=voiceLocale(l);if(v)u.voice=v;u.rate=P.rate;
   const st=[];txt.replace(/\S+/g,(w,o)=>st.push(o));
   u.onboundary=e=>{const n=st.findIndex((s,x)=>s<=e.charIndex&&(st[x+1]===undefined||st[x+1]>e.charIndex));
     document.querySelectorAll('.chunk.on .w').forEach((w,x)=>w.classList.toggle('cur',x===n))};
@@ -189,10 +201,9 @@ function say(i){
 function wire(){
   if(!window.speechSynthesis){$('#txt').insertAdjacentHTML('beforebegin','<p class="note">This browser has no speech voice. Try Chrome or Safari.</p>')}
   const vs=$('#voice'),voiceKey='voice:'+P.m.lang;
-  const score=v=>{const n=v.name.toLowerCase();return (n.includes('natural')?30:0)+(n.includes('neural')?25:0)+(n.includes('premium')?20:0)+(n.includes('enhanced')?15:0)+(v.default?5:0)};
   const loadVoices=()=>{
     if(!vs||!window.speechSynthesis)return;
-    const voices=speechSynthesis.getVoices().filter(v=>P.key.startsWith('int-en-ar/')?v.name==='Google UK English Female':v.lang.toLowerCase().startsWith(P.m.lang)).sort((a,b)=>score(b)-score(a)||a.name.localeCompare(b.name));
+    const voices=availableVoices();
     vs.innerHTML='';
     voices.forEach(v=>{const o=document.createElement('option');o.value=v.name+'|'+v.lang;o.textContent=v.name+' ('+v.lang+')';vs.appendChild(o)});
     if(!voices.length){const o=document.createElement('option');o.textContent='No '+LN[P.m.lang]+' voice found';vs.appendChild(o);return}
