@@ -192,7 +192,7 @@ function wire(){
   const score=v=>{const n=v.name.toLowerCase();return (n.includes('natural')?30:0)+(n.includes('neural')?25:0)+(n.includes('premium')?20:0)+(n.includes('enhanced')?15:0)+(v.default?5:0)};
   const loadVoices=()=>{
     if(!vs||!window.speechSynthesis)return;
-    const voices=speechSynthesis.getVoices().filter(v=>v.lang.toLowerCase().startsWith(P.m.lang)).sort((a,b)=>score(b)-score(a)||a.name.localeCompare(b.name));
+    const voices=speechSynthesis.getVoices().filter(v=>P.key.startsWith('int-en-ar/')?v.name==='Google UK English Female':v.lang.toLowerCase().startsWith(P.m.lang)).sort((a,b)=>score(b)-score(a)||a.name.localeCompare(b.name));
     vs.innerHTML='';
     voices.forEach(v=>{const o=document.createElement('option');o.value=v.name+'|'+v.lang;o.textContent=v.name+' ('+v.lang+')';vs.appendChild(o)});
     if(!voices.length){const o=document.createElement('option');o.textContent='No '+LN[P.m.lang]+' voice found';vs.appendChild(o);return}
