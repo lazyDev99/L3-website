@@ -1,0 +1,381 @@
+{
+ "id": "wr-redaction",
+ "cat": "writing",
+ "title": "Techniques de rédaction",
+ "lang": "fr",
+ "prof": "Pr Aina",
+ "lessons": [
+  {
+   "id": "l1",
+   "date": "Date TBC",
+   "title": "Qu’est-ce que la rédaction ?",
+   "info": [
+    "Handout pp. 3–9",
+    "Definitions and key techniques"
+   ],
+   "note": "Summary of the handout, to check against Pr Aina’s lecture",
+   "sections": [
+    {
+     "h": "L’essentiel",
+     "j": "Essentials",
+     "blocks": [
+      {
+       "k": "sum",
+       "items": [
+        "La **rédaction** est l’action d’écrire ou de composer un texte.",
+        "Une **technique de rédaction** est une méthode qui rend l’écriture plus claire, plus cohérente et plus convaincante.",
+        "Trois techniques à retenir : une **structure claire**, des **exemples et des preuves**, la **relecture**."
+       ]
+      }
+     ]
+    },
+    {
+     "h": "Définitions",
+     "j": "Definitions",
+     "blocks": [
+      {
+       "k": "def",
+       "term": "Rédaction",
+       "text": "Action de rédiger un texte, ou le texte rédigé lui-même. C’est aussi l’exercice scolaire qui apprend aux élèves à rédiger.",
+       "note": "Origine du mot : bas latin redactio, issu du latin classique redigere, « ramener »."
+      },
+      {
+       "k": "def",
+       "term": "Technique de rédaction",
+       "text": "Méthode ou approche utilisée pour améliorer la qualité et l’efficacité de l’écriture."
+      },
+      {
+       "k": "p",
+       "text": "Rédiger permet de produire des documents, des articles, des lettres, des rapports ou même des œuvres littéraires."
+      }
+     ]
+    },
+    {
+     "h": "Ce que demande une bonne rédaction",
+     "j": "Qualities",
+     "blocks": [
+      {
+       "k": "ul",
+       "items": [
+        "choisir les **mots appropriés** ;",
+        "organiser les idées de façon **cohérente** ;",
+        "transmettre un **message** de manière efficace."
+       ]
+      },
+      {
+       "k": "p",
+       "text": "C’est un moyen de communiquer : on peut ainsi **informer**, **persuader** ou **émouvoir** le lecteur."
+      }
+     ]
+    },
+    {
+     "h": "Les trois techniques clés",
+     "j": "Techniques",
+     "blocks": [
+      {
+       "k": "tbl",
+       "head": [
+        "Technique",
+        "En quoi elle consiste",
+        "Pourquoi elle compte"
+       ],
+       "rows": [
+        [
+         "Structure claire et logique",
+         "Une introduction engageante, des paragraphes bien construits, une conclusion solide.",
+         "Les idées se développent de façon cohérente et le lecteur suit le raisonnement."
+        ],
+        [
+         "Exemples concrets et preuves",
+         "Statistiques, études de cas, témoignages, citations d’experts, expérience personnelle.",
+         "Les arguments gagnent en crédibilité et le texte devient plus convaincant."
+        ],
+        [
+         "Relecture et révision",
+         "Repérer les fautes de grammaire et d’orthographe et les incohérences, puis affiner le style.",
+         "Le texte gagne en qualité : mots plus précis, phrases plus percutantes."
+        ]
+       ]
+      },
+      {
+       "k": "tip",
+       "label": "À ne pas oublier.",
+       "text": "Quand on s’appuie sur des sources, on les **cite correctement** pour éviter le plagiat."
+      }
+     ]
+    },
+    {
+     "h": "Les objectifs du guide",
+     "j": "Objectives",
+     "blocks": [
+      {
+       "k": "p",
+       "text": "L’introduction du guide range ses objectifs en trois familles. Le guide vise surtout la **dissertation littéraire**."
+      },
+      {
+       "k": "tbl",
+       "head": [
+        "Objectifs",
+        "Ce qu’ils visent"
+       ],
+       "rows": [
+        [
+         "Pédagogiques",
+         "Faire comprendre les étapes de la recherche universitaire, de la collecte des données à la rédaction finale, et améliorer les compétences en rédaction scientifique."
+        ],
+        [
+         "Opérationnels",
+         "Donner des outils pratiques pour organiser son travail, gérer son temps et éviter les erreurs courantes."
+        ],
+        [
+         "Académiques",
+         "Proposer des normes claires pour la recherche et la rédaction universitaires (qualité et rigueur attendues)."
+        ]
+       ]
+      }
+     ]
+    }
+   ],
+   "qa": [
+    [
+     "Qu’est-ce que la rédaction ?",
+     "L’action de rédiger un texte, ou le texte rédigé lui-même. C’est aussi l’exercice scolaire qui apprend à rédiger."
+    ],
+    [
+     "Qu’est-ce qu’une technique de rédaction ?",
+     "Une méthode ou une approche qui améliore la qualité et l’efficacité de l’écriture."
+    ],
+    [
+     "Citez trois techniques de rédaction et leur utilité.",
+     "**Structure claire** : le lecteur suit le raisonnement. **Exemples et preuves** : les arguments sont plus crédibles. **Relecture** : on corrige les erreurs et on améliore le style."
+    ],
+    [
+     "Pourquoi faut-il citer ses sources ?",
+     "Pour éviter le plagiat et appuyer ses arguments sur des sources fiables."
+    ],
+    [
+     "Que permet la relecture ?",
+     "Repérer les erreurs de grammaire et d’orthographe, les incohérences, et affiner le style (mots plus précis, phrases plus percutantes)."
+    ],
+    [
+     "Quelles sont les trois familles d’objectifs du guide ?",
+     "Les objectifs **pédagogiques**, **opérationnels** et **académiques**."
+    ],
+    [
+     "D’où vient le mot « rédaction » ?",
+     "Du bas latin redactio, issu du latin classique redigere, « ramener »."
+    ]
+   ]
+  },
+  {
+   "id": "l2",
+   "date": "Date TBC",
+   "title": "Planifier avant d’écrire",
+   "info": [
+    "Handout pp. 10–16",
+    "Strategies and the 8 steps"
+   ],
+   "note": "Summary of the handout, to check against Pr Aina’s lecture",
+   "sections": [
+    {
+     "h": "L’essentiel",
+     "j": "Essentials",
+     "blocks": [
+      {
+       "k": "sum",
+       "items": [
+        "Avant d’écrire tout texte, on **élabore un plan** : une rédaction est une **construction**.",
+        "Le choix du discours (narratif, argumentatif, explicatif) dépend du **but**, du **destinataire** et du **message**.",
+        "La dissertation suit **trois parties** et se prépare en **huit étapes**."
+       ]
+      }
+     ]
+    },
+    {
+     "h": "Le principe : une rédaction est une construction",
+     "j": "Principle",
+     "blocks": [
+      {
+       "k": "p",
+       "text": "On ne construit pas une maison sans plan ni calcul des matériaux. Il en va de même pour un texte : lettre, thèse, mémoire, commentaire, résumé… On **établit un plan ou un schéma avant de rédiger**."
+      },
+      {
+       "k": "p",
+       "text": "Cette comparaison vient de Clas et Horguelin, *Le français, langue des affaires* (1991), cités par le guide."
+      }
+     ]
+    },
+    {
+     "h": "Les procédés d’organisation du discours",
+     "j": "Discours",
+     "blocks": [
+      {
+       "k": "p",
+       "text": "Un auteur peut organiser son texte de trois façons :"
+      },
+      {
+       "k": "tbl",
+       "head": [
+        "Discours",
+        "Ce que fait l’auteur"
+       ],
+       "rows": [
+        [
+         "Narratif",
+         "Raconter une histoire."
+        ],
+        [
+         "Argumentatif",
+         "Défendre une idée au moyen d’arguments."
+        ],
+        [
+         "Explicatif",
+         "Expliquer, faire comprendre."
+        ]
+       ]
+      },
+      {
+       "k": "p",
+       "text": "Le choix dépend de trois éléments : le **but** de l’auteur, la **personne à qui il s’adresse** et le **message** qu’il veut transmettre."
+      },
+      {
+       "k": "tip",
+       "label": "Dans le polycopié.",
+       "text": "Pour le discours explicatif, le guide écrit « interpeller le destinataire ». La définition habituelle est « expliquer, faire comprendre ». Si le professeur donne une formule précise, utilisez la sienne."
+      }
+     ]
+    },
+    {
+     "h": "La structure de la dissertation",
+     "j": "Structure",
+     "blocks": [
+      {
+       "k": "p",
+       "text": "La dissertation suit généralement **trois parties** :"
+      },
+      {
+       "k": "tbl",
+       "head": [
+        "Partie",
+        "Rôle"
+       ],
+       "rows": [
+        [
+         "Introduction",
+         "Présente le sujet et formule la problématique."
+        ],
+        [
+         "Développement",
+         "Expose les arguments, soutenus par des exemples et des références."
+        ],
+        [
+         "Conclusion",
+         "Récapitule les points clés et répond à la problématique, dans un langage clair et précis."
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "h": "Les huit étapes de la méthode",
+     "j": "8 steps",
+     "blocks": [
+      {
+       "k": "ol",
+       "items": [
+        "**Comprendre le sujet** : lire attentivement la question et saisir tous ses aspects.",
+        "**Rechercher et collecter** des informations pertinentes : livres, articles, sites, sources fiables.",
+        "**Formuler la problématique** : une question claire qui guide la réflexion et l’argumentation.",
+        "**Planifier la structure** : décider de l’ordre des idées, des arguments et des exemples.",
+        "**Rédiger l’introduction** : présenter le sujet, contextualiser le problème, poser la problématique, susciter l’intérêt et annoncer la structure.",
+        "**Développer les arguments** : chaque argument est clair et logique, appuyé par des exemples, des preuves ou des références.",
+        "**Rédiger la conclusion** : récapituler les points clés, répondre à la problématique, ouvrir si possible des perspectives.",
+        "**Réviser et corriger** : relire pour vérifier la cohérence, la clarté et l’orthographe."
+       ]
+      },
+      {
+       "k": "tip",
+       "label": "Astuce de mémorisation (pas dans le polycopié).",
+       "text": "Regroupez les étapes en trois temps : **avant** d’écrire (1 à 4), **pendant** (5 à 7), **après** (8)."
+      }
+     ]
+    },
+    {
+     "h": "Vocabulaire à retenir",
+     "j": "Glossary",
+     "blocks": [
+      {
+       "k": "def",
+       "term": "Introduction",
+       "text": "Premier paragraphe d’une dissertation : il présente le sujet et la problématique."
+      },
+      {
+       "k": "def",
+       "term": "Problématique",
+       "text": "Question claire et pertinente qui guide la réflexion et l’argumentation."
+      },
+      {
+       "k": "def",
+       "term": "Thèse",
+       "text": "L’idée principale ou l’argument central d’une dissertation."
+      },
+      {
+       "k": "def",
+       "term": "Arguments",
+       "text": "Les raisons ou les preuves utilisées pour soutenir la thèse."
+      },
+      {
+       "k": "def",
+       "term": "Exemples",
+       "text": "Des illustrations concrètes qui appuient les arguments et renforcent la compréhension."
+      },
+      {
+       "k": "def",
+       "term": "Conclusion",
+       "text": "Dernier paragraphe d’une dissertation : il récapitule les points clés et répond à la problématique."
+      },
+      {
+       "k": "tip",
+       "label": "Piège classique.",
+       "text": "Ne confondez pas la **thèse** (l’idée défendue) et la **problématique** (la question posée). La conclusion répond à la problématique."
+      }
+     ]
+    }
+   ],
+   "qa": [
+    [
+     "Pourquoi faut-il un plan avant d’écrire ?",
+     "Parce qu’une rédaction est une construction : comme on ne bâtit pas une maison sans plan, on n’écrit pas un texte (lettre, thèse, mémoire, résumé…) sans en avoir établi la structure."
+    ],
+    [
+     "Quels sont les trois procédés d’organisation du discours ? De quoi dépend le choix ?",
+     "Narratif (raconter), argumentatif (défendre une idée par des arguments), explicatif (expliquer). Le choix dépend du but de l’auteur, du destinataire et du message."
+    ],
+    [
+     "Quelles sont les trois parties de la dissertation et leur rôle ?",
+     "**Introduction** : présenter le sujet et formuler la problématique. **Développement** : exposer les arguments avec exemples et références. **Conclusion** : récapituler et répondre à la problématique."
+    ],
+    [
+     "Citez dans l’ordre les huit étapes de la méthode.",
+     "1 Comprendre le sujet, 2 Rechercher et collecter, 3 Formuler la problématique, 4 Planifier la structure, 5 Rédiger l’introduction, 6 Développer les arguments, 7 Rédiger la conclusion, 8 Réviser et corriger."
+    ],
+    [
+     "Que doit contenir l’introduction ?",
+     "Le sujet, le contexte du problème, la problématique ; elle doit susciter l’intérêt du lecteur et annoncer la structure."
+    ],
+    [
+     "Que doit faire la conclusion ?",
+     "Récapituler les points clés, répondre à la problématique et, si possible, ouvrir des perspectives ou inviter à la réflexion."
+    ],
+    [
+     "Quelle différence entre thèse et problématique ?",
+     "La **thèse** est l’idée principale défendue. La **problématique** est la question qui guide la réflexion, à laquelle la conclusion répond."
+    ],
+    [
+     "Que vérifie-t-on à l’étape de révision ?",
+     "La cohérence, la clarté et l’orthographe."
+    ]
+   ]
+  }
+ ]
+}
