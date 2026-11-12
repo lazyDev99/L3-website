@@ -26,8 +26,6 @@ async function route(){
   try{
     if(!mods.length){const ix=await j('content/modules.json');mods=await Promise.all(ix.map(i=>j(`content/${i}.json`)))}
     const key=h[0]==='about'||h[0]==='play'?h[0]:h[0]==='c'?'c/'+h[1]:(h[0]==='m'||h[0]==='l')?'c/'+(find(h[1])||{}).cat:'';
-    const back={c:'#/',m:'#/c/'+(find(h[1])||{}).cat,l:'#/m/'+h[1],about:'#/',play:'#/'}[h[0]];
-    const backLink=$('#backlink');backLink.hidden=!back;backLink.href=back||'#/';
     document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',(a.dataset.go??a.getAttribute('href').slice(2))===key));
     ({c:()=>cat(h[1]),m:()=>mpage(h[1]),l:()=>lesson(h[1],h[2]),about,play}[h[0]]||home)();
     const dp={c:1,about:1,play:1,m:2,l:3}[h[0]]||0;app.className='';void app.offsetWidth;app.className=dp>=pd?'gf':'gb';pd=dp;const h1=$('#app h1');document.title=(h1?h1.textContent+' | ':'')+'The Booth';
