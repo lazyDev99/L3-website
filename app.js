@@ -12,7 +12,7 @@ const LN={ar:'Arabic',fr:'French',en:'English'},VL={ar:'ar-SA',fr:'fr-FR',en:'en
 const CAT={translation:{n:'Translation',d:'Source texts, your own versions, and notes on every choice.'},interpretation:{n:'Interpretation',d:'Listen, shadow, and build your memory span.'},writing:{n:'Writing',d:'Techniques, models, and exercises for writing well.'}};
 const GL={translation:'A⇄ع',writing:'Aa¶',interpretation:'<svg viewBox="0 0 80 40"><g fill="currentColor"><rect x="2" y="14" width="6" height="12" rx="3"/><rect x="14" y="8" width="6" height="24" rx="3"/><rect x="26" y="2" width="6" height="36" rx="3"/><rect x="38" y="6" width="6" height="28" rx="3"/><rect x="50" y="12" width="6" height="16" rx="3"/><rect x="62" y="4" width="6" height="32" rx="3"/><rect x="74" y="15" width="6" height="10" rx="3"/></g></svg>'};
 const store={get(){try{return JSON.parse(localStorage.getItem('done')||'[]')}catch(e){return[]}},set(v){try{localStorage.setItem('done',JSON.stringify(v))}catch(e){}}};
-const j=u=>location.protocol==='file:'&&window.BOOTH_DATA&&BOOTH_DATA[u]?Promise.resolve(BOOTH_DATA[u]):fetch(u).then(r=>{if(!r.ok)throw 0;return r.json()});
+const j=u=>window.BOOTH_DATA&&BOOTH_DATA[u]?Promise.resolve(BOOTH_DATA[u]):fetch(u).then(r=>{if(!r.ok)throw 0;return r.json()});
 const L=p=>`href="#/${p}"`;
 const rtl=l=>l==='ar'?' dir="rtl" lang="ar"':` lang="${l}"`;
 const pl=(n,w)=>`${n} ${w}${n===1?'':'s'}`;
