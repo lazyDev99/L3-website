@@ -135,6 +135,11 @@ footer{border-top:1px solid var(--line);margin-top:2.5rem;padding-top:1.2rem}
 .jump .btn{flex:none}
 h2[id]{scroll-margin-top:calc(var(--hh,58px) + 70px)}
 
+body:has(.about-page){min-height:100vh;display:flex;flex-direction:column}
+body:has(.about-page) main{flex:1;width:100%}
+body:has(.about-page) footer{width:100%;margin-top:0;padding-bottom:2.5rem}
+@media(min-width:900px){.about-page .txt{margin-top:3rem}}
+
 .hero h1{font-size:clamp(2.2rem,8vw,3.4rem)}
 .hero .pf{color:color-mix(in srgb,var(--on) 90%,transparent);margin:.5rem 0 0}
 

@@ -28,7 +28,7 @@ async function route(){
     if(!mods.length){const ix=await j('content/modules.json');mods=await Promise.all(ix.map(i=>j(`content/${i}.json`)))}
     const key=h[0]==='about'||h[0]==='play'?h[0]:h[0]==='c'?'c/'+h[1]:(h[0]==='m'||h[0]==='l')?'c/'+(find(h[1])||{}).cat:'';
     document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',(a.dataset.go??a.getAttribute('href').slice(2))===key));
-    ({c:()=>cat(h[1]),m:()=>mpage(h[1]),l:()=>lesson(h[1],h[2]),about,play}[h[0]]||home)();
+    app.dataset.page=h[0];({c:()=>cat(h[1]),m:()=>mpage(h[1]),l:()=>lesson(h[1],h[2]),about,play}[h[0]]||home)();
     const dp={c:1,about:1,play:1,m:2,l:3}[h[0]]||0;app.className='';void app.offsetWidth;app.className=dp>=pd?'gf':'gb';pd=dp;const h1=$('#app h1');document.title=(h1?h1.textContent+' | ':'')+'The Booth';
   }catch(e){app.innerHTML='<h1>404</h1><p class="lede">This page got lost in translation.</p><a class="back" href="#/">‹ Home</a>'}
 }
@@ -49,7 +49,7 @@ function mpage(id){
   app.innerHTML=`<div class="${m.cat}"><div class="hero"><span class="glyph" aria-hidden="true">${GL[m.cat]}</span><a class="back" ${L('c/'+m.cat)}>‹ ${CAT[m.cat].n}</a><span class="pill">${code(m)}</span><h1>${esc(m.title)}</h1>${m.prof?`<p class="pf">${esc(m.prof)}</p>`:''}<p>${pl(m.lessons.length,'lesson')}</p></div><h2>Lessons</h2>`+(m.lessons.length?'':'<p class="empty">No lessons yet. The first one will appear here after the first class.</p>')+
   m.lessons.map(l=>`<a class="row" ${L(`l/${m.id}/${l.id}`)}>${dt(l.date)}<span class="rt"><span class="rtitle">${esc(l.title)}</span>${d.includes(m.id+'/'+l.id)?'<span class="sub">Done ✓</span>':''}</span>${go}</a>`).join('')+`</div>`;
 }
-function about(){app.innerHTML=`<h1>About</h1><p class="txt">${esc(SITE.about)}</p>`}
+function about(){app.innerHTML=`<div class="about-page"><h1>About</h1><p class="txt">${esc(SITE.about)}</p></div>`}
 
 function lesson(mid,lid){
   const m=find(mid),l=m.lessons.find(x=>x.id===lid),key=mid+'/'+lid;
