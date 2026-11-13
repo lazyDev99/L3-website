@@ -1,6 +1,6 @@
 // ---- Edit these ----
 const SITE={name:'M. Djedir',about:'I’m M. Djedir, a third-year student of translation and interpreting with a passion for web and game development. I created The Booth as a practical, welcoming study space where students can learn, revise and prepare for their exams. I hope you enjoy using it as much as I enjoyed building it.',
-socials:[['Facebook','#'],['Instagram','#'],['GitHub','#']]};
+socials:[['Facebook','https://web.facebook.com/djedir.mou'],['GitHub','https://github.com/lazyDev99']]};
 // --------------------
 const ICON={
 Facebook:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/></svg>',
@@ -90,8 +90,9 @@ function lesson(mid,lid){
     P={m:{chunks:l.chunks,lang:m.lang},key,k:1,i:-1,rate:1,loop:false,play:false,t:0,tm:l.times,au:l.audio?Object.assign(new Audio(l.audio),{preload:'auto',preservesPitch:true}):null};
     const study=l.study?`<section class="study-guide"><div class="study-head"><span class="pill">Study guide</span><p class="lede">Learn the idea first, then practise recalling it from the symbols.</p></div>${l.study.map(s=>`<div class="study-section"><h2>${esc(s.title)}</h2><div class="study-cards">${s.cards.map(c=>`<article class="study-card"><span class="study-symbol">${esc(c.symbol)}</span><div><h3${rtl(m.lang)}>${esc(c.term)}</h3><p${rtl(m.lang)}><b>Definition:</b> ${esc(c.definition)}</p><p${rtl(m.lang)}><b>Why useful:</b> ${esc(c.use)}</p></div></article>`).join('')}</div></div>`).join('')}</section>`:'';
     h+=study+`<p class="pill">${m.from?LN[m.from]+' into '+LN[m.to]:LN[m.lang]}</p>${l.audio?'<span class="pill">Original recording</span>':''}<p class="lede">Tap any line to start from there.</p><div class="layout"><div id="txt"${rtl(m.lang)}></div><aside class="side">
-    <button class="btn" id="pv" aria-label="Previous chunk">Prev</button><button class="btn pri" id="pp">Play</button><button class="btn" id="nx" aria-label="Next chunk">Next</button>
+    <div class="playback-actions"><button class="btn" id="pv" aria-label="Previous chunk">Prev</button><button class="btn pri" id="pp">Play</button><button class="btn" id="nx" aria-label="Next chunk">Next</button></div>
     <button class="btn" id="lp">Repeat chunk: off</button>
+    ${P.key.startsWith('int-fr-ar/')?'<button class="btn shadow-toggle" id="shadow" aria-pressed="false">Voice-only shadowing</button><button class="btn shadow-reveal" id="reveal" disabled>Show current paragraph</button>':''}
     <label>Speed <select id="sp"><option>0.7</option><option>0.85</option><option selected>1</option><option>1.2</option></select></label>
     <label>Voice <select id="voice"><option>Loading voices…</option></select></label>
     <label>Chunk size <select id="lv"><option value="1">Short</option><option value="2">Medium</option><option value="3">Long</option></select></label>${l.audio?'<button class="btn" id="sy">Fix timing</button>':''}</aside></div>`+(l.extra&&l.extra.length?`<h2>Text without audio</h2><p class="sub">The recording ends before these lines.</p>`+l.extra.map(c=>`<p class="wp">${esc(c)}</p>`).join(''):'');
@@ -165,24 +166,32 @@ function draw(){
 function mark(){
   document.querySelectorAll('.chunk').forEach((e,x)=>e.classList.toggle('on',x===P.i));
   const e=document.querySelector('.chunk.on');e&&e.scrollIntoView({block:'center',behavior:'smooth'});
+  const reveal=$('#reveal');
+  if(reveal&&e){reveal.disabled=false;reveal.textContent=e.classList.contains('shadow-revealed')?'Hide current paragraph':'Show current paragraph'}
 }
 function btn(){const b=$('#pp');if(b&&P)b.textContent=P.play?'Pause':'Play'}
 function stop(){if(window.speechSynthesis)speechSynthesis.cancel();if(P){P.play=false;P.t++;clearInterval(P.iv);if(P.au)P.au.pause()}btn()}
 const isEnglishLesson=()=>P&&P.key.startsWith('int-en-ar/');
 const voiceScore=v=>{
   const n=v.name.toLowerCase(),l=v.lang.toLowerCase();
-  return (isEnglishLesson()&&l==='en-gb'?100:0)+(n.includes('female')?40:0)+(n.includes('sonia')?35:0)+(n.includes('hazel')?35:0)+(n.includes('natural')?30:0)+(n.includes('neural')?25:0)+(n.includes('premium')?20:0)+(n.includes('enhanced')?15:0)-(n.includes('male')?80:0)-(n.includes('david')?50:0)+(v.default?5:0);
+  return (isEnglishLesson()&&l==='en-gb'?100:0)+(n.includes('female')?80:0)+(n.includes('zira')?70:0)+(n.includes('sonia')?55:0)+(n.includes('hazel')?55:0)+(n.includes('susan')?55:0)+(n.includes('libby')?55:0)+(n.includes('natural')?30:0)+(n.includes('neural')?25:0)+(n.includes('premium')?20:0)+(n.includes('enhanced')?15:0)-(n.includes('male')?80:0)-(n.includes('david')?50:0)+(v.default?5:0);
 };
 const availableVoices=()=>speechSynthesis.getVoices().filter(v=>{
   const n=v.name.toLowerCase(),l=v.lang.toLowerCase();
   if(isEnglishLesson())return l==='en-gb'||(l.startsWith('en-')&&!n.includes('male')&&!n.includes('david'));
   return l.startsWith(P.m.lang);
 }).sort((a,b)=>voiceScore(b)-voiceScore(a)||a.name.localeCompare(b.name));
-const preferredVoice=l=>availableVoices().find(v=>v.lang.toLowerCase()===(isEnglishLesson()?'en-gb':VL[l].toLowerCase()))||availableVoices()[0];
+const preferredVoice=l=>{
+  const voices=availableVoices(),locale=isEnglishLesson()?'en-gb':VL[l].toLowerCase();
+  return voices.find(v=>v.lang.toLowerCase()===locale)||voices[0];
+};
 function say(i){
   if(window.speechSynthesis)speechSynthesis.cancel();clearInterval(P.iv);P.t++;const t=P.t;
   if(i<0||i>=P.c.length){P.play=false;if(P.au)P.au.pause();return btn()}
-  P.i=i;P.play=true;mark();
+  P.i=i;P.play=true;
+  const shadowText=$('#txt');
+  if(shadowText&&shadowText.classList.contains('shadow-hidden'))shadowText.querySelectorAll('.shadow-revealed').forEach(x=>x.classList.remove('shadow-revealed'));
+  mark();
   if(P.au&&P.ts){
     const[a,b]=P.ts[i],au=P.au;au.pause();btn();
     const run=()=>{au.currentTime=a;au.playbackRate=P.rate;au.play();
@@ -208,7 +217,7 @@ function wire(){
     voices.forEach(v=>{const o=document.createElement('option');o.value=v.name+'|'+v.lang;o.textContent=v.name+' ('+v.lang+')';vs.appendChild(o)});
     if(!voices.length){const o=document.createElement('option');o.textContent='No '+LN[P.m.lang]+' voice found';vs.appendChild(o);return}
     let saved='';try{saved=localStorage.getItem(voiceKey)||''}catch(e){}
-    const chosen=voices.find(v=>v.name+'|'+v.lang===saved)||voices[0];
+    const chosen=voices.find(v=>v.name+'|'+v.lang===saved)||preferredVoice(P.m.lang);
     P.voice=chosen;vs.value=chosen.name+'|'+chosen.lang;
   };
   draw();
@@ -217,6 +226,17 @@ function wire(){
   $('#nx').onclick=()=>say(Math.min(P.i+1,P.c.length-1));
   $('#pv').onclick=()=>say(Math.max(P.i-1,0));
   $('#lp').onclick=e=>{P.loop=!P.loop;e.target.textContent='Repeat chunk: '+(P.loop?'on':'off')};
+  if($('#shadow'))$('#shadow').onclick=e=>{
+    const txt=$('#txt'),hidden=txt.classList.toggle('shadow-hidden');
+    e.currentTarget.setAttribute('aria-pressed',String(hidden));
+    e.currentTarget.textContent=hidden?'Exit voice-only mode':'Voice-only shadowing';
+    if(!hidden){txt.querySelectorAll('.shadow-revealed').forEach(x=>x.classList.remove('shadow-revealed'));$('#reveal').textContent='Show current paragraph'}
+  };
+  if($('#reveal'))$('#reveal').onclick=e=>{
+    const current=$('#txt .chunk.on');if(!current)return;
+    const revealed=current.classList.toggle('shadow-revealed');
+    e.currentTarget.textContent=revealed?'Hide current paragraph':'Show current paragraph';
+  };
   $('#sp').onchange=e=>{P.rate=+e.target.value;if(P.au)P.au.playbackRate=P.rate};
   vs.onchange=e=>{P.voice=speechSynthesis.getVoices().find(v=>v.name+'|'+v.lang===e.target.value)||null;try{localStorage.setItem(voiceKey,e.target.value)}catch(err){}};
   $('#lv').onchange=e=>{stop();P.k=+e.target.value;P.i=-1;draw()};
