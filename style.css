@@ -81,6 +81,19 @@ h2,h3{font-weight:800;font-size:1.5rem;margin:2.2rem 0 .8rem}
   .side>label{justify-self:stretch;width:100%;min-width:0}
 }
 @media(max-width:899px){.side{left:.5rem;right:.5rem;max-width:calc(100% - 1rem);overflow:hidden}}
+@media(max-width:599px){
+  .side{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.25rem;padding:.35rem .5rem calc(.35rem + env(safe-area-inset-bottom));justify-content:stretch}
+  .side .playback-actions,.side>#lp,.side>.shadow-toggle,.side>.shadow-reveal{grid-column:1/-1;justify-self:center}
+  .side .btn{min-height:36px;padding:.3rem .5rem;font-size:.78rem;border-radius:10px}
+  .playback-actions{gap:.25rem;padding:.18rem;border-radius:12px}
+  .playback-actions .btn{min-width:2.6rem}
+  .playback-actions #pp{min-width:4.2rem}
+  .side>#lp{min-height:32px!important;font-size:.72rem}
+  .side>label{width:100%;min-width:0;font-size:.68rem;gap:.25rem;padding:0}
+  .side>label select{width:100%;min-height:34px;padding:0 .35rem;border-radius:9px;font-size:.72rem}
+  .shadow-toggle{min-height:34px!important;margin:0}
+  .shadow-reveal{min-height:30px!important}
+}
 footer{color:var(--mut);font-size:.9rem;padding-bottom:2rem}
 footer a{margin-right:1rem;color:var(--trx);font-weight:600}
 @media(max-width:560px){.in{flex-wrap:wrap;padding-top:.7rem}nav{width:100%;overflow-x:auto;padding-bottom:.5rem}}
