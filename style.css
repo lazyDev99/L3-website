@@ -136,7 +136,7 @@ footer a{margin-right:1rem;color:var(--trx);font-weight:600}
 h2[id]{scroll-margin-top:110px}
 .gl{font:800 .8rem var(--ui);color:var(--cx);margin:1.2rem 0 .2rem}
 .kr{display:grid;grid-template-columns:1fr 1fr;gap:1rem;direction:ltr;padding:.55rem 0;border-bottom:1px solid var(--line);align-items:baseline}
-.ka{font-family:"Noto Naskh Arabic",serif;font-size:1.1rem;line-height:1.7;word-spacing:-.05em}
+.ka{font-family:"Noto Naskh Arabic",serif;font-size:1.1rem;line-height:1.7;word-spacing:-.02em}
 .kf{direction:ltr;text-align:left}
 .cvr .cv:not(.on){color:transparent;text-shadow:0 0 10px var(--mut);cursor:pointer;user-select:none}
 .att{width:100%;font:1rem/1.6 Literata,serif;color:var(--ink);background:var(--s);border:1.5px solid var(--ctl);border-radius:12px;padding:.8rem;margin:.5rem 0 1rem}
@@ -173,7 +173,7 @@ html{-webkit-text-size-adjust:100%}
 .art{max-width:46rem}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-.art .txt[dir=rtl]{font-size:1.18rem;line-height:2;word-spacing:-.12em}
+.art .txt[dir=rtl]{font-size:1.18rem;line-height:2;word-spacing:-.07em}
 .kg{border-bottom:1px solid var(--line)}
 .kg summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:48px;cursor:pointer;list-style:none;font:700 1rem var(--ui)}
 .kg summary::-webkit-details-marker{display:none}
