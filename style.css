@@ -279,3 +279,11 @@ details.qa[open]{border-color:var(--c)}details.qa p{margin:0;padding:.2rem 1rem 
 .btn.fbs:hover{filter:brightness(1.08)}
 main[data-page=feedback]{padding-bottom:2.5rem}
 @media(max-width:560px){nav{padding-right:1.5rem;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 1.6rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 1.6rem),transparent)}}
+@media(max-width:599px){
+  .side{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .side .playback-actions{grid-column:span 4;justify-self:stretch;justify-content:center}
+  .side>#lp{grid-column:span 2;justify-self:stretch}
+  .side>.shadow-toggle,.side>.shadow-reveal{grid-column:span 3;justify-self:stretch;font-size:.7rem!important;line-height:1.15}
+  .side>label{grid-column:span 2}
+  .side:not(:has(#voice))>label{grid-column:span 3}
+}

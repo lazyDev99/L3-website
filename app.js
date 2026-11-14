@@ -19,7 +19,9 @@ const L=p=>`href="#/${p}"`;
 const rtl=l=>l==='ar'?' dir="rtl" lang="ar"':` lang="${l}"`;
 const pl=(n,w)=>`${n} ${w}${n===1?'':'s'}`;
 const find=id=>mods.find(m=>m.id===id);
-const dt=s=>{const p=s.split(' ');return `<span class="tile">${esc(p[0])}<b>${esc(p[1]||'')}</b>${esc(p[2]||'')}</span>`};
+const TBC=s=>/^date tbc$/i.test(s);
+const EDIT=(()=>{try{if(/[?&]edit\b/.test(location.search))localStorage.setItem('edit','1');return localStorage.getItem('edit')==='1'}catch(e){return false}})();
+const dt=(s,n)=>{if(TBC(s))return `<span class="tile">Lesson<b>${n}</b></span>`;const p=s.split(' ');return `<span class="tile">${esc(p[0])}<b>${esc(p[1]||'')}</b>${esc(p[2]||'')}</span>`};
 const go=`<span class="go" aria-hidden="true">›</span>`;
 let mods=[],P=null,pd=0,TM=0,KB=null,GT=0,FB_FROM='#/';
 
@@ -48,7 +50,7 @@ function cat(c){
 function mpage(id){
   const m=find(id),d=store.get();
   app.innerHTML=`<div class="${m.cat}"><div class="hero"><span class="glyph" aria-hidden="true">${GL[m.cat]}</span><a class="back" ${L('c/'+m.cat)}>‹ ${CAT[m.cat].n}</a><span class="pill">${code(m)}</span><h1>${esc(m.title)}</h1>${m.prof?`<p class="pf">${esc(m.prof)}</p>`:''}<p>${pl(m.lessons.length,'lesson')}</p></div><h2>Lessons</h2>`+(m.lessons.length?'':'<p class="empty">No lessons yet. The first one will appear here after the first class.</p>')+
-  m.lessons.map(l=>`<a class="row" ${L(`l/${m.id}/${l.id}`)}>${dt(l.date)}<span class="rt"><span class="rtitle">${esc(l.title)}</span>${d.includes(m.id+'/'+l.id)?'<span class="sub">Done ✓</span>':''}</span>${go}</a>`).join('')+`</div>`;
+  m.lessons.map(l=>`<a class="row" ${L(`l/${m.id}/${l.id}`)}>${dt(l.date,m.lessons.indexOf(l)+1)}<span class="rt"><span class="rtitle">${esc(l.title)}</span>${d.includes(m.id+'/'+l.id)?'<span class="sub">Done ✓</span>':''}</span>${go}</a>`).join('')+`</div>`;
 }
 
 function feedback(){
@@ -87,7 +89,7 @@ function about(){app.innerHTML=`<div class="about-page"><h1>About</h1><p class="
 
 function lesson(mid,lid){
   const m=find(mid),l=m.lessons.find(x=>x.id===lid),key=mid+'/'+lid;
-  let h=`<div class="${m.cat} lp"><a class="back" ${L('m/'+mid)}>‹ ${esc(m.title)}</a><p class="meta">${esc(l.date)}</p><h1>${esc(l.title)}</h1>`;
+  let h=`<div class="${m.cat} lp"><a class="back" ${L('m/'+mid)}>‹ ${esc(m.title)}</a><p class="meta">${TBC(l.date)?'Lesson '+(m.lessons.indexOf(l)+1):esc(l.date)}</p><h1>${esc(l.title)}</h1>`;
   if(m.cat==='translation'){
     const lab=[];let n=0;l.paras.forEach(p=>lab.push(p.lb||(p.h?'Title':p.m?'Date':'¶'+(++n))));
     const bd=(p,i)=>p.h||p.m?'':`<span class="n">${lab[i]}</span>`;
@@ -129,10 +131,10 @@ function lesson(mid,lid){
     ${P.key.startsWith('int-fr-ar/')?'<button class="btn shadow-toggle" id="shadow" aria-pressed="false">Voice-only shadowing</button><button class="btn shadow-reveal" id="reveal" disabled>Show current paragraph</button>':''}
     <label>Speed <select id="sp"><option>0.7</option><option>0.85</option><option selected>1</option><option>1.2</option></select></label>
     ${!l.audio?'<label>Voice <select id="voice"><option>Loading voices…</option></select></label>':''}
-    <label>Chunk size <select id="lv"><option value="1">Short</option><option value="2">Medium</option><option value="3">Long</option></select></label>${l.audio?'<button class="btn" id="sy">Fix timing</button>':''}</aside></div>`+(l.extra&&l.extra.length?`<h2>Text without audio</h2><p class="sub">The recording ends before these lines.</p>`+l.extra.map(c=>`<p class="wp">${esc(c)}</p>`).join(''):'');
+    <label>Chunk size <select id="lv"><option value="1">Short</option><option value="2">Medium</option><option value="3">Long</option></select></label>${l.audio&&EDIT?'<button class="btn" id="sy">Fix timing</button>':''}</aside></div>`+(l.extra&&l.extra.length?`<h2>Text without audio</h2><p class="sub">The recording ends before these lines.</p>`+l.extra.map(c=>`<p class="wp">${esc(c)}</p>`).join(''):'');
   }
   const nx=m.lessons[m.lessons.indexOf(l)+1];
-  h+=`<p><button class="btn" id="dn"></button> <span class="sub" id="dm" aria-live="polite"></span></p>`+(nx?`<a class="row" ${L(`l/${mid}/${nx.id}`)}>${dt(nx.date)}<span class="rt"><span class="sub">Next lesson</span><span class="rtitle">${esc(nx.title)}</span></span>${go}</a>`:'')+`</div>`;app.innerHTML=h;
+  h+=`<p><button class="btn" id="dn"></button> <span class="sub" id="dm" aria-live="polite"></span></p>`+(nx?`<a class="row" ${L(`l/${mid}/${nx.id}`)}>${dt(nx.date,m.lessons.indexOf(nx)+1)}<span class="rt"><span class="sub">Next lesson</span><span class="rtitle">${esc(nx.title)}</span></span>${go}</a>`:'')+`</div>`;app.innerHTML=h;
   try{const sv=JSON.parse(localStorage.getItem('tm:'+key));if(P&&sv&&sv.length===l.chunks.length)P.tm=sv}catch(e){}
   const dn=$('#dn'),paint=()=>dn.textContent=store.get().includes(key)?'Done ✓':'Mark as done';paint();
   dn.onclick=()=>{let d=store.get();const on=!d.includes(key);store.set(on?[...d,key]:d.filter(x=>x!==key));paint();$('#dm').textContent=on?rnd(DL):''};
