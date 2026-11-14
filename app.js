@@ -27,8 +27,8 @@ async function route(){
   stop();P=null;app.onclick=null;app.onkeydown=null;clearInterval(TM);KB=null;GT++;document.documentElement.style.setProperty('--hh',$('.top').offsetHeight+'px');scrollTo(0,0);const h=location.hash.slice(2).split('/');if(h[0]!=='feedback')FB_FROM=location.hash||'#/';
   try{
     if(!mods.length){const ix=await j('content/modules.json');mods=await Promise.all(ix.map(i=>j(`content/${i}.json`)))}
-    const key=h[0]==='about'||h[0]==='play'?h[0]:h[0]==='c'?'c/'+h[1]:(h[0]==='m'||h[0]==='l')?'c/'+(find(h[1])||{}).cat:'';
-    document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',(a.dataset.go??a.getAttribute('href').slice(2))===key));
+    const key=h[0]==='about'||h[0]==='play'||h[0]==='feedback'?h[0]:h[0]==='c'?'c/'+h[1]:(h[0]==='m'||h[0]==='l')?'c/'+(find(h[1])||{}).cat:'';
+    document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',(a.dataset.go??a.getAttribute('href').slice(2))===key));const on=$('nav a.on'),nv=$('nav');if(on)nv.scrollTo({left:on.offsetLeft-(nv.clientWidth-on.offsetWidth)/2});
     app.dataset.page=h[0];({c:()=>cat(h[1]),m:()=>mpage(h[1]),l:()=>lesson(h[1],h[2]),about,play,feedback}[h[0]]||home)();
     const dp={c:1,about:1,play:1,feedback:1,m:2,l:3}[h[0]]||0;app.className='';void app.offsetWidth;app.className=dp>=pd?'gf':'gb';pd=dp;const h1=$('#app h1');document.title=(h1?h1.textContent+' | ':'')+'The Booth';
   }catch(e){app.innerHTML='<h1>404</h1><p class="lede">This page got lost in translation.</p><a class="back" href="#/">‹ Home</a>'}
@@ -54,33 +54,30 @@ function mpage(id){
 function feedback(){
   const T=['Suggestion','Bug','Other'];
   app.innerHTML=`<div class="fb"><a class="back" href="${esc(FB_FROM)}">‹ Back</a><h1>Feedback</h1><p class="lede">Found a bug, spotted a mistake, or have an idea? Tell me here and it comes straight to me.</p>
-  <form id="fbf" novalidate>
-  <fieldset class="fbt"><legend>What is it about?</legend>${T.map((t,i)=>`<label class="fbo"><input type="radio" name="type" value="${t}"${i?'':' checked'}><span>${t}</span></label>`).join('')}</fieldset>
-  <label class="fbl" for="fbm">Your message</label>
-  <textarea id="fbm" class="att" rows="6" maxlength="2000" dir="auto" placeholder="English, français or العربية. Any is fine."></textarea>
-  <label class="fbl" for="fbn">Your name <span class="sub">(optional)</span></label>
-  <input id="fbn" class="fin" maxlength="60" autocomplete="name">
-  <label class="fbc"><input type="checkbox" id="fba"> Send anonymously</label>
-  <div id="fbr"><label class="fbl" for="fbe">Email or WhatsApp <span class="sub">(only if you want a reply)</span></label><input id="fbe" class="fin" maxlength="100" autocomplete="off"></div>
+  <form id="fbf" class="fbcard" novalidate>
+  <div><span class="fbh" id="fbth">What is it about?</span><div class="fbt" role="radiogroup" aria-labelledby="fbth">${T.map((t,i)=>`<label class="fbo"><input type="radio" name="type" value="${t}"${i?'':' checked'}><span>${t}</span></label>`).join('')}</div></div>
+  <div><label class="fbh" for="fbm">Your message</label><textarea id="fbm" class="att" maxlength="2000" dir="auto" placeholder="English, français or العربية. Any is fine."></textarea></div>
+  <div><label class="fbh" for="fbn">Your name <span class="sub">(optional)</span></label><input id="fbn" class="fin" maxlength="60" autocomplete="name"><label class="fbc"><input type="checkbox" id="fba"><span class="sw"></span><span>Send anonymously</span></label></div>
+  <div id="fbr"><label class="fbh" for="fbe">Email or WhatsApp <span class="sub">(only if you want a reply)</span></label><input id="fbe" class="fin" maxlength="100" autocomplete="off"></div>
   <input type="checkbox" id="fbb" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
-  <p class="sub">The page you were on is sent with your message. For bugs, your browser type is sent too.</p>
-  <button class="btn pri" id="fbs" type="submit">Send</button>
+  <p class="fbn">The page you were on is sent with your message. For bugs, your browser type is sent too.</p>
+  <button class="btn pri fbs" id="fbs" type="submit">Send</button>
   <p class="note" id="fbx" aria-live="polite" hidden></p></form></div>`;
   const f=$('#fbf'),m=$('#fbm'),x=$('#fbx'),b=$('#fbs'),show=t=>{x.hidden=false;x.textContent=t};
   $('#fba').onchange=e=>{const on=e.target.checked;$('#fbn').disabled=on;$('#fbr').hidden=on;if(on){$('#fbn').value='';$('#fbe').value=''}};
-  const done=()=>{$('.fb').innerHTML='<h1>Thank you</h1><p class="lede">Your message is on its way to me. I read every one.</p><p><button class="btn pri" id="fbg">Back home</button> <button class="btn" id="fbm2">Send another</button></p>';$('#fbg').onclick=()=>{location.hash='#/'};$('#fbm2').onclick=()=>route()};
+  const done=demo=>{$('.fb').innerHTML='<h1>Thank you</h1><p class="lede">Your message is on its way to me. I read every one.</p>'+(demo?'<p class="note">Test mode: nothing was actually sent. Add your access key in app.js to go live.</p>':'')+'<p><button class="btn pri" id="fbg">Back home</button> <button class="btn" id="fbm2">Send another</button></p>';$('#fbg').onclick=()=>{location.hash='#/'};$('#fbm2').onclick=()=>route()};
   f.onsubmit=async e=>{
     e.preventDefault();x.hidden=true;
     const msg=m.value.trim();
     if(msg.length<5){show('Please write a little more.');m.focus();return}
     if($('#fbb').checked){done();return}
-    const K=SITE.formKey;
-    if(!K||K.startsWith('PASTE')){show('Feedback is not set up yet.');return}
+    const K=SITE.formKey,demo=!K||K.startsWith('PASTE');
     const type=f.elements.type.value,anon=$('#fba').checked,name=anon?'':$('#fbn').value.trim(),contact=anon?'':$('#fbe').value.trim();
     const body={access_key:K,subject:'The Booth: '+type,from_name:'The Booth',type,name:anon?'Anonymous':(name||'Not given'),contact:contact||'None',message:msg,page:FB_FROM};
     if(contact.includes('@'))body.email=contact;
     if(type==='Bug')body.browser=navigator.userAgent;
     b.disabled=true;b.textContent='Sending…';
+    if(demo){console.log('Feedback (test mode):',body);setTimeout(()=>done(true),700);return}
     try{
       const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body)});
       const d=await r.json();if(!d.success)throw 0;done();
