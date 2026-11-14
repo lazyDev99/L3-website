@@ -157,7 +157,7 @@
           "Notes are a map of meaning, relationships and figures. Writing every word would obstruct listening and understanding."
         ],
         [
-          "What do ? and ? mean?",
+          "What do ↑ and ↓ mean?",
           "They mean increase and decrease, and help record direction quickly."
         ],
         [
@@ -165,7 +165,7 @@
           "Because omitting a negative or refusal can completely reverse the meaning."
         ],
         [
-          "What are ? and ? used for?",
+          "What are ∵ and ∴ used for?",
           "The first shows a cause and the second shows a result, preserving the logic of an argument."
         ],
         [
@@ -181,8 +181,8 @@
             {
               "k": "sum",
               "items": [
-                "الترجمة الشفوية التتابعية: يستمع المترجم إلى مقطع من الخطاب ثم ينقل معناه بعد توقف المتكلم.",
-                "الترجمة الشفوية الفورية: ينقل المترجم الرسالة في الوقت نفسه تقريبا الذي يتحدث فيه المتكلم.",
+                "التفسير التتابعي: يستمع المترجم إلى مقطع من الخطاب ثم ينقل معناه بعد توقف المتكلم.",
+                "التفسير الفوري: ينقل المترجم الرسالة في الوقت نفسه تقريبا الذي يتحدث فيه المتكلم.",
                 "الملاحظات المهنية ليست تفريغا حرفيا؛ إنها خريطة مختصرة للمعنى والعلاقات والأرقام."
               ]
             }
@@ -194,13 +194,13 @@
           "blocks": [
             {
               "k": "def",
-              "term": "Consecutive interpreting — الترجمة الشفوية التتابعية",
+              "term": "Consecutive interpreting — التفسير التتابعي",
               "text": "نقل الرسالة بعد كل مقطع من كلام المتحدث. يتيح هذا النمط للمترجم الاستماع والفهم ثم إعادة بناء الرسالة بدقة.",
               "note": "تكون الملاحظات المنظمة مفيدة خصوصا عندما تكون المقاطع طويلة أو مليئة بالأرقام والأسماء."
             },
             {
               "k": "def",
-              "term": "Simultaneous interpreting — الترجمة الشفوية الفورية",
+              "term": "Simultaneous interpreting — التفسير الفوري",
               "text": "نقل الرسالة بالتزامن تقريبا مع كلام المتحدث. يحافظ هذا النمط على انسياب المؤتمر، لكنه يتطلب تركيزا وسرعة ومعالجة فورية."
             },
             {
@@ -246,7 +246,7 @@
                 [
                   "≠ / ×",
                   "نفي / رفض / منع",
-                  "يمنع قلب المعنى؛ إغفال النفي من أخطر أخطاء الترجمة الشفوية."
+                  "يمنع قلب المعنى؛ إغفال النفي من أخطر أخطاء التفسير."
                 ],
                 [
                   "!",
