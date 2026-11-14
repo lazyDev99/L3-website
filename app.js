@@ -1,7 +1,7 @@
 // ---- Edit these ----
 const SITE={name:'M. Djedir',about:'I’m M. Djedir, a third-year student of translation and interpreting with a passion for web and game development. I created The Booth as a practical, welcoming study space where students can learn, revise and prepare for their exams. I hope you enjoy using it as much as I enjoyed building it.',
 socials:[['Facebook','https://web.facebook.com/djedir.mou'],['GitHub','https://github.com/lazyDev99']],
-formKey:'PASTE_YOUR_ACCESS_KEY_HERE'};
+formKey:'b8316e96-9b45-4299-a33f-2c77107a2e20'};
 // --------------------
 const ICON={
 Facebook:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/></svg>',
