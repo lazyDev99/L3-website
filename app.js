@@ -1,6 +1,7 @@
 // ---- Edit these ----
 const SITE={name:'M. Djedir',about:'I’m M. Djedir, a third-year student of translation and interpreting with a passion for web and game development. I created The Booth as a practical, welcoming study space where students can learn, revise and prepare for their exams. I hope you enjoy using it as much as I enjoyed building it.',
-socials:[['Facebook','https://web.facebook.com/djedir.mou'],['GitHub','https://github.com/lazyDev99']]};
+socials:[['Facebook','https://web.facebook.com/djedir.mou'],['GitHub','https://github.com/lazyDev99']],
+formKey:'PASTE_YOUR_ACCESS_KEY_HERE'};
 // --------------------
 const ICON={
 Facebook:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/></svg>',
@@ -20,16 +21,16 @@ const pl=(n,w)=>`${n} ${w}${n===1?'':'s'}`;
 const find=id=>mods.find(m=>m.id===id);
 const dt=s=>{const p=s.split(' ');return `<span class="tile">${esc(p[0])}<b>${esc(p[1]||'')}</b>${esc(p[2]||'')}</span>`};
 const go=`<span class="go" aria-hidden="true">›</span>`;
-let mods=[],P=null,pd=0,TM=0,KB=null,GT=0;
+let mods=[],P=null,pd=0,TM=0,KB=null,GT=0,FB_FROM='#/';
 
 async function route(){
-  stop();P=null;app.onclick=null;app.onkeydown=null;clearInterval(TM);KB=null;GT++;document.documentElement.style.setProperty('--hh',$('.top').offsetHeight+'px');scrollTo(0,0);const h=location.hash.slice(2).split('/');
+  stop();P=null;app.onclick=null;app.onkeydown=null;clearInterval(TM);KB=null;GT++;document.documentElement.style.setProperty('--hh',$('.top').offsetHeight+'px');scrollTo(0,0);const h=location.hash.slice(2).split('/');if(h[0]!=='feedback')FB_FROM=location.hash||'#/';
   try{
     if(!mods.length){const ix=await j('content/modules.json');mods=await Promise.all(ix.map(i=>j(`content/${i}.json`)))}
     const key=h[0]==='about'||h[0]==='play'?h[0]:h[0]==='c'?'c/'+h[1]:(h[0]==='m'||h[0]==='l')?'c/'+(find(h[1])||{}).cat:'';
     document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',(a.dataset.go??a.getAttribute('href').slice(2))===key));
-    app.dataset.page=h[0];({c:()=>cat(h[1]),m:()=>mpage(h[1]),l:()=>lesson(h[1],h[2]),about,play}[h[0]]||home)();
-    const dp={c:1,about:1,play:1,m:2,l:3}[h[0]]||0;app.className='';void app.offsetWidth;app.className=dp>=pd?'gf':'gb';pd=dp;const h1=$('#app h1');document.title=(h1?h1.textContent+' | ':'')+'The Booth';
+    app.dataset.page=h[0];({c:()=>cat(h[1]),m:()=>mpage(h[1]),l:()=>lesson(h[1],h[2]),about,play,feedback}[h[0]]||home)();
+    const dp={c:1,about:1,play:1,feedback:1,m:2,l:3}[h[0]]||0;app.className='';void app.offsetWidth;app.className=dp>=pd?'gf':'gb';pd=dp;const h1=$('#app h1');document.title=(h1?h1.textContent+' | ':'')+'The Booth';
   }catch(e){app.innerHTML='<h1>404</h1><p class="lede">This page got lost in translation.</p><a class="back" href="#/">‹ Home</a>'}
 }
 function home(){
@@ -48,6 +49,43 @@ function mpage(id){
   const m=find(id),d=store.get();
   app.innerHTML=`<div class="${m.cat}"><div class="hero"><span class="glyph" aria-hidden="true">${GL[m.cat]}</span><a class="back" ${L('c/'+m.cat)}>‹ ${CAT[m.cat].n}</a><span class="pill">${code(m)}</span><h1>${esc(m.title)}</h1>${m.prof?`<p class="pf">${esc(m.prof)}</p>`:''}<p>${pl(m.lessons.length,'lesson')}</p></div><h2>Lessons</h2>`+(m.lessons.length?'':'<p class="empty">No lessons yet. The first one will appear here after the first class.</p>')+
   m.lessons.map(l=>`<a class="row" ${L(`l/${m.id}/${l.id}`)}>${dt(l.date)}<span class="rt"><span class="rtitle">${esc(l.title)}</span>${d.includes(m.id+'/'+l.id)?'<span class="sub">Done ✓</span>':''}</span>${go}</a>`).join('')+`</div>`;
+}
+
+function feedback(){
+  const T=['Suggestion','Bug','Other'];
+  app.innerHTML=`<div class="fb"><a class="back" href="${esc(FB_FROM)}">‹ Back</a><h1>Feedback</h1><p class="lede">Found a bug, spotted a mistake, or have an idea? Tell me here and it comes straight to me.</p>
+  <form id="fbf" novalidate>
+  <fieldset class="fbt"><legend>What is it about?</legend>${T.map((t,i)=>`<label class="fbo"><input type="radio" name="type" value="${t}"${i?'':' checked'}><span>${t}</span></label>`).join('')}</fieldset>
+  <label class="fbl" for="fbm">Your message</label>
+  <textarea id="fbm" class="att" rows="6" maxlength="2000" dir="auto" placeholder="English, français or العربية. Any is fine."></textarea>
+  <label class="fbl" for="fbn">Your name <span class="sub">(optional)</span></label>
+  <input id="fbn" class="fin" maxlength="60" autocomplete="name">
+  <label class="fbc"><input type="checkbox" id="fba"> Send anonymously</label>
+  <div id="fbr"><label class="fbl" for="fbe">Email or WhatsApp <span class="sub">(only if you want a reply)</span></label><input id="fbe" class="fin" maxlength="100" autocomplete="off"></div>
+  <input type="checkbox" id="fbb" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+  <p class="sub">The page you were on is sent with your message. For bugs, your browser type is sent too.</p>
+  <button class="btn pri" id="fbs" type="submit">Send</button>
+  <p class="note" id="fbx" aria-live="polite" hidden></p></form></div>`;
+  const f=$('#fbf'),m=$('#fbm'),x=$('#fbx'),b=$('#fbs'),show=t=>{x.hidden=false;x.textContent=t};
+  $('#fba').onchange=e=>{const on=e.target.checked;$('#fbn').disabled=on;$('#fbr').hidden=on;if(on){$('#fbn').value='';$('#fbe').value=''}};
+  const done=()=>{$('.fb').innerHTML='<h1>Thank you</h1><p class="lede">Your message is on its way to me. I read every one.</p><p><button class="btn pri" id="fbg">Back home</button> <button class="btn" id="fbm2">Send another</button></p>';$('#fbg').onclick=()=>{location.hash='#/'};$('#fbm2').onclick=()=>route()};
+  f.onsubmit=async e=>{
+    e.preventDefault();x.hidden=true;
+    const msg=m.value.trim();
+    if(msg.length<5){show('Please write a little more.');m.focus();return}
+    if($('#fbb').checked){done();return}
+    const K=SITE.formKey;
+    if(!K||K.startsWith('PASTE')){show('Feedback is not set up yet.');return}
+    const type=f.elements.type.value,anon=$('#fba').checked,name=anon?'':$('#fbn').value.trim(),contact=anon?'':$('#fbe').value.trim();
+    const body={access_key:K,subject:'The Booth: '+type,from_name:'The Booth',type,name:anon?'Anonymous':(name||'Not given'),contact:contact||'None',message:msg,page:FB_FROM};
+    if(contact.includes('@'))body.email=contact;
+    if(type==='Bug')body.browser=navigator.userAgent;
+    b.disabled=true;b.textContent='Sending…';
+    try{
+      const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body)});
+      const d=await r.json();if(!d.success)throw 0;done();
+    }catch(err){show('Could not send. Check your connection and try again.');b.disabled=false;b.textContent='Send'}
+  };
 }
 function about(){app.innerHTML=`<div class="about-page"><h1>About</h1><p class="txt">${esc(SITE.about)}</p></div>`}
 
@@ -94,7 +132,7 @@ function lesson(mid,lid){
     <button class="btn" id="lp">Repeat chunk: off</button>
     ${P.key.startsWith('int-fr-ar/')?'<button class="btn shadow-toggle" id="shadow" aria-pressed="false">Voice-only shadowing</button><button class="btn shadow-reveal" id="reveal" disabled>Show current paragraph</button>':''}
     <label>Speed <select id="sp"><option>0.7</option><option>0.85</option><option selected>1</option><option>1.2</option></select></label>
-    <label>Voice <select id="voice"><option>Loading voices…</option></select></label>
+    ${!l.audio?'<label>Voice <select id="voice"><option>Loading voices…</option></select></label>':''}
     <label>Chunk size <select id="lv"><option value="1">Short</option><option value="2">Medium</option><option value="3">Long</option></select></label>${l.audio?'<button class="btn" id="sy">Fix timing</button>':''}</aside></div>`+(l.extra&&l.extra.length?`<h2>Text without audio</h2><p class="sub">The recording ends before these lines.</p>`+l.extra.map(c=>`<p class="wp">${esc(c)}</p>`).join(''):'');
   }
   const nx=m.lessons[m.lessons.indexOf(l)+1];
@@ -238,7 +276,7 @@ function wire(){
     e.currentTarget.textContent=revealed?'Hide current paragraph':'Show current paragraph';
   };
   $('#sp').onchange=e=>{P.rate=+e.target.value;if(P.au)P.au.playbackRate=P.rate};
-  vs.onchange=e=>{P.voice=speechSynthesis.getVoices().find(v=>v.name+'|'+v.lang===e.target.value)||null;try{localStorage.setItem(voiceKey,e.target.value)}catch(err){}};
+  if(vs)vs.onchange=e=>{P.voice=speechSynthesis.getVoices().find(v=>v.name+'|'+v.lang===e.target.value)||null;try{localStorage.setItem(voiceKey,e.target.value)}catch(err){}};
   $('#lv').onchange=e=>{stop();P.k=+e.target.value;P.i=-1;draw()};
   $('#txt').onclick=e=>{const c=e.target.closest('.chunk');if(c)say(+c.dataset.i)};
   if($('#sy'))$('#sy').onclick=syncMode;
