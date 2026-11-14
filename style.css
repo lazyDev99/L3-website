@@ -161,9 +161,9 @@ footer{border-top:1px solid var(--line);margin-top:2.5rem;padding-top:1.2rem}
 .jump .btn{flex:none}
 h2[id]{scroll-margin-top:calc(var(--hh,58px) + 70px)}
 
-body:has(.about-page){min-height:100vh;display:flex;flex-direction:column}
-body:has(.about-page) main{flex:1;width:100%}
-body:has(.about-page) footer{width:100%;margin-top:0;padding-bottom:2.5rem}
+body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+main{flex:1;width:100%}
+footer{width:100%;margin-top:0;padding-bottom:2.5rem}
 @media(min-width:900px){.about-page .txt{margin-top:3rem}}
 
 .hero h1{font-size:clamp(2.2rem,8vw,3.4rem)}
@@ -275,3 +275,7 @@ details.qa[open]{border-color:var(--c)}details.qa p{margin:0;padding:.2rem 1rem 
 .fbs:disabled{opacity:.6;cursor:default}
 #fbid[hidden],#fbx[hidden]{display:none}
 .fbid{display:grid;gap:1.2rem;margin-top:1rem}
+.btn.fbs{background:var(--cx);border-color:var(--cx);color:var(--bg)}
+.btn.fbs:hover{filter:brightness(1.08)}
+main[data-page=feedback]{padding-bottom:2.5rem}
+@media(max-width:560px){nav{padding-right:1.5rem;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 1.6rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 1.6rem),transparent)}}

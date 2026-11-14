@@ -53,13 +53,13 @@ function mpage(id){
 
 function feedback(){
   const T=['Suggestion','Bug','Other'];
-  app.innerHTML=`<div class="fb"><a class="back" href="${esc(FB_FROM)}">‹ Back</a><h1>Feedback</h1><p class="lede">Found a bug, spotted a mistake, or have an idea? Tell me here and it comes straight to me.</p>
+  app.innerHTML=`<div class="fb"><a class="back" href="${esc(FB_FROM)}">‹ Back</a><h1>Feedback</h1><p class="lede">Found a bug, spotted a mistake, or have an idea? Tell me here and it comes straight to me. Messages are anonymous unless you choose to add your name.</p>
   <form id="fbf" class="fbcard" novalidate>
   <div><span class="fbh" id="fbth">What is it about?</span><div class="fbt" role="radiogroup" aria-labelledby="fbth">${T.map((t,i)=>`<label class="fbo"><input type="radio" name="type" value="${t}"${i?'':' checked'}><span>${t}</span></label>`).join('')}</div></div>
   <div><label class="fbh" for="fbm">Your message</label><textarea id="fbm" class="att" maxlength="2000" dir="auto" placeholder="English, français or العربية. Any is fine."></textarea></div>
-  <div><label class="fbc"><input type="checkbox" id="fba"><span class="sw"></span><span>Add my name and contact</span></label><div id="fbid" class="fbid" hidden><div><label class="fbh" for="fbn">Your name</label><input id="fbn" class="fin" maxlength="60" autocomplete="name"></div><div><label class="fbh" for="fbe">Email or WhatsApp <span class="sub">(only if you want a reply)</span></label><input id="fbe" class="fin" maxlength="100" autocomplete="off" placeholder="Email, WhatsApp, or any social account"></div></div></div>
+  <div><label class="fbc"><input type="checkbox" id="fba"><span class="sw"></span><span>Add my name and contact</span></label><div id="fbid" class="fbid" hidden><div><label class="fbh" for="fbn">Your name</label><input id="fbn" class="fin" maxlength="60" autocomplete="name"></div><div><label class="fbh" for="fbe">Email or WhatsApp <span class="sub">(only if you want a reply)</span></label><input id="fbe" class="fin" maxlength="100" autocomplete="off" placeholder="Email, WhatsApp, social handle"></div></div></div>
   <input type="checkbox" id="fbb" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
-  <p class="fbn">Messages are anonymous unless you add your name. The page you were on is sent with your message. For bugs, your browser type is sent too.</p>
+  <p class="fbn">The page you were on is sent with your message. For bugs, your browser type is sent too.</p>
   <button class="btn pri fbs" id="fbs" type="submit">Send</button>
   <p class="note" id="fbx" aria-live="polite" hidden></p></form></div>`;
   const f=$('#fbf'),m=$('#fbm'),x=$('#fbx'),b=$('#fbs'),show=t=>{x.hidden=false;x.textContent=t};
