@@ -57,14 +57,13 @@ function feedback(){
   <form id="fbf" class="fbcard" novalidate>
   <div><span class="fbh" id="fbth">What is it about?</span><div class="fbt" role="radiogroup" aria-labelledby="fbth">${T.map((t,i)=>`<label class="fbo"><input type="radio" name="type" value="${t}"${i?'':' checked'}><span>${t}</span></label>`).join('')}</div></div>
   <div><label class="fbh" for="fbm">Your message</label><textarea id="fbm" class="att" maxlength="2000" dir="auto" placeholder="English, français or العربية. Any is fine."></textarea></div>
-  <div><label class="fbh" for="fbn">Your name <span class="sub">(optional)</span></label><input id="fbn" class="fin" maxlength="60" autocomplete="name"><label class="fbc"><input type="checkbox" id="fba"><span class="sw"></span><span>Send anonymously</span></label></div>
-  <div id="fbr"><label class="fbh" for="fbe">Email or WhatsApp <span class="sub">(only if you want a reply)</span></label><input id="fbe" class="fin" maxlength="100" autocomplete="off"></div>
+  <div><label class="fbc"><input type="checkbox" id="fba"><span class="sw"></span><span>Add my name and contact</span></label><div id="fbid" class="fbid" hidden><div><label class="fbh" for="fbn">Your name</label><input id="fbn" class="fin" maxlength="60" autocomplete="name"></div><div><label class="fbh" for="fbe">Email or WhatsApp <span class="sub">(only if you want a reply)</span></label><input id="fbe" class="fin" maxlength="100" autocomplete="off" placeholder="Email, WhatsApp, or any social account"></div></div></div>
   <input type="checkbox" id="fbb" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
-  <p class="fbn">The page you were on is sent with your message. For bugs, your browser type is sent too.</p>
+  <p class="fbn">Messages are anonymous unless you add your name. The page you were on is sent with your message. For bugs, your browser type is sent too.</p>
   <button class="btn pri fbs" id="fbs" type="submit">Send</button>
   <p class="note" id="fbx" aria-live="polite" hidden></p></form></div>`;
   const f=$('#fbf'),m=$('#fbm'),x=$('#fbx'),b=$('#fbs'),show=t=>{x.hidden=false;x.textContent=t};
-  $('#fba').onchange=e=>{const on=e.target.checked;$('#fbn').disabled=on;$('#fbr').hidden=on;if(on){$('#fbn').value='';$('#fbe').value=''}};
+  $('#fba').onchange=e=>{const on=e.target.checked;$('#fbid').hidden=!on;if(!on){$('#fbn').value='';$('#fbe').value=''}};
   const done=demo=>{$('.fb').innerHTML='<h1>Thank you</h1><p class="lede">Your message is on its way to me. I read every one.</p>'+(demo?'<p class="note">Test mode: nothing was actually sent. Add your access key in app.js to go live.</p>':'')+'<p><button class="btn pri" id="fbg">Back home</button> <button class="btn" id="fbm2">Send another</button></p>';$('#fbg').onclick=()=>{location.hash='#/'};$('#fbm2').onclick=()=>route()};
   f.onsubmit=async e=>{
     e.preventDefault();x.hidden=true;
@@ -72,16 +71,16 @@ function feedback(){
     if(msg.length<5){show('Please write a little more.');m.focus();return}
     if($('#fbb').checked){done();return}
     const K=SITE.formKey,demo=!K||K.startsWith('PASTE');
-    const type=f.elements.type.value,anon=$('#fba').checked,name=anon?'':$('#fbn').value.trim(),contact=anon?'':$('#fbe').value.trim();
+    const type=f.elements.type.value,anon=!$('#fba').checked,name=anon?'':$('#fbn').value.trim(),contact=anon?'':$('#fbe').value.trim();
     const body={access_key:K,subject:'The Booth: '+type,from_name:'The Booth',type,name:anon?'Anonymous':(name||'Not given'),contact:contact||'None',message:msg,page:FB_FROM};
-    if(contact.includes('@'))body.email=contact;
+    if(/^\S+@\S+\.\S+$/.test(contact))body.email=contact;
     if(type==='Bug')body.browser=navigator.userAgent;
     b.disabled=true;b.textContent='Sending…';
     if(demo){console.log('Feedback (test mode):',body);setTimeout(()=>done(true),700);return}
     try{
       const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body)});
-      const d=await r.json();if(!d.success)throw 0;done();
-    }catch(err){show('Could not send. Check your connection and try again.');b.disabled=false;b.textContent='Send'}
+      const d=await r.json();if(!d.success)throw new Error(d.message||'Rejected');done();
+    }catch(err){show('Could not send ('+(err.message||'error')+'). Check your connection and try again.');b.disabled=false;b.textContent='Send'}
   };
 }
 function about(){app.innerHTML=`<div class="about-page"><h1>About</h1><p class="txt">${esc(SITE.about)}</p></div>`}
